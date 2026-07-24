@@ -1,0 +1,42 @@
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    [SerializeField]
+    private float moveSpeed = 10f;
+
+    [SerializeField]
+    private float horizontalLimit = 2.3f;
+
+    [SerializeField]
+    private float verticalLimit = 4.2f;
+    
+    void Update()
+    {
+        // Verifica se o botão esquerdo do mouse está pressionado
+        if (Input.GetMouseButton(0))
+        {
+            // Pega a posição do mouse na tela
+            Vector3 mousePosition = Input.mousePosition;
+
+            // Define a distância da câmera
+            mousePosition.z = 10f;
+
+            // Converte para posição do mundo
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+            // Move o Player
+            Vector3 targetPosition = new Vector3(
+            Mathf.Clamp(worldPosition.x, -horizontalLimit, horizontalLimit),
+            Mathf.Clamp(worldPosition.y, -verticalLimit, verticalLimit),
+            0f
+            );
+
+            transform.position = Vector3.Lerp(
+            transform.position,
+             targetPosition,
+            moveSpeed * Time.deltaTime
+            );
+        }
+    }
+}
