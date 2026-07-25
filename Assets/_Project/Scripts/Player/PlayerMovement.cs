@@ -6,9 +6,6 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed = 10f;
 
     [SerializeField]
-    private float horizontalLimit = 2.3f;
-
-    [SerializeField]
     private float verticalLimit = 4.2f;
 
     private int currentLane = 0;
@@ -30,8 +27,10 @@ public class PlayerMovement : MonoBehaviour
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
             // Move o Player
+            int lane = LaneManager.Instance.GetClosestLane(worldPosition);
+
             Vector3 targetPosition = new Vector3(
-            Mathf.Clamp(worldPosition.x, -horizontalLimit, horizontalLimit),
+            LaneManager.Instance.GetLaneCenter(lane).x,
             Mathf.Clamp(worldPosition.y, -verticalLimit, verticalLimit),
             0f
             );
@@ -42,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed * Time.deltaTime
             );
 
-            currentLane = LaneManager.Instance.GetClosestLane(transform.position);
+            currentLane = lane;
             Debug.Log($"Lane Atual: {currentLane}");
         }
     }

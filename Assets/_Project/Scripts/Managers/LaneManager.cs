@@ -4,44 +4,48 @@ public class LaneManager : MonoBehaviour
 {
     public static LaneManager Instance;
 
-    [Header("Lane Points")]
-    [SerializeField] private Transform[] lanePoints;
+    [Header("Lane Settings")]
+    [SerializeField] private int laneCount = 5;
+
+    [SerializeField] private float leftLimit = -2.3f;
+
+    [SerializeField] private float rightLimit = 2.3f;
+
+    private float laneWidth;
 
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
-    }
 
-    public Vector3 GetLanePosition(int laneIndex)
-    {
-        return lanePoints[laneIndex].position;
+        laneWidth = (rightLimit - leftLimit) / laneCount;
     }
 
     public int GetClosestLane(Vector3 worldPosition)
-{
-    int closestLane = 0;
-    float shortestDistance = Mathf.Infinity;
-
-    for (int i = 0; i < lanePoints.Length; i++)
     {
-        float distance = Mathf.Abs(worldPosition.x - lanePoints[i].position.x);
+        float normalizedX = worldPosition.x - leftLimit;
 
-        if (distance < shortestDistance)
-        {
-            shortestDistance = distance;
-            closestLane = i;
-        }
+        int lane = Mathf.FloorToInt(normalizedX / laneWidth);
+
+        return Mathf.Clamp(lane, 0, laneCount - 1);
     }
 
-    return closestLane;
-}
+    public Vector3 GetLaneCenter(int lane)
+    {
+        float x = leftLimit + laneWidth * lane + laneWidth / 2f;
 
-    public int LaneCount => lanePoints.Length;
+        return new Vector3(x, 0f, 0f);
+    }
+
+    public float GetLeftLimit()
+    {
+    return leftLimit;
+    }
+
+    public float GetRightLimit()
+    {
+    return rightLimit;
+    }
 }
