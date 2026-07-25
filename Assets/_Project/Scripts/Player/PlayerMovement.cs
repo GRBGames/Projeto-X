@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float verticalLimit = 4.2f;
+
+    private int currentLane = 0;
+
+    public int CurrentLane => currentLane;
     
     void Update()
     {
@@ -37,6 +41,9 @@ public class PlayerMovement : MonoBehaviour
              targetPosition,
             moveSpeed * Time.deltaTime
             );
+
+            currentLane = LaneManager.Instance.GetClosestLane(transform.position);
+            Debug.Log($"Lane Atual: {currentLane}");
         }
     }
 }
