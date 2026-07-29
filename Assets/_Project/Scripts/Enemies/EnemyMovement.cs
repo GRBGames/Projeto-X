@@ -9,6 +9,10 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     private float disableY = -6f;
 
+    [SerializeField]
+    [Min(1)]
+    private int escapeDamage = 1;
+
     void Update()
     {
         transform.Translate(
@@ -18,7 +22,23 @@ public class EnemyMovement : MonoBehaviour
 
         if (transform.position.y <= disableY)
         {
-            gameObject.SetActive(false);
+            Escape();
         }
+    }
+
+    private void Escape()
+    {
+        if (PlayerBarrier.Instance != null)
+        {
+            PlayerBarrier.Instance.TakeDamage(
+                escapeDamage
+            );
+        }
+
+        Debug.Log(
+            $"{name} atravessou o Selo Arcano."
+        );
+
+        gameObject.SetActive(false);
     }
 }

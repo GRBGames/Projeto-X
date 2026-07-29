@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3682619746495491286}
   - component: {fileID: 2672948541899293363}
   - component: {fileID: 4574979364772423659}
+  - component: {fileID: 5163591843600165686}
   m_Layer: 0
   m_Name: Enemy_Basic
   m_TagString: Untagged
@@ -123,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   moveSpeed: 1.5
   disableY: -6
+  escapeDamage: 1
 --- !u!114 &2672948541899293363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,3 +184,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5163591843600165686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79734043340449526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a832e9d6ec2284192c53cf68fb80fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
+  contactDamage: 1

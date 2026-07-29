@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,13 +8,11 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed = 10f;
 
     [SerializeField]
-    private float verticalLimit = 4.2f;
-
-    [SerializeField]
     [Min(0.001f)]
     private float laneCenterTolerance = 0.05f;
 
-    private int currentLane = 0;
+    private int currentLane;
+    private float fixedY;
 
     public int CurrentLane => currentLane;
 
@@ -35,6 +34,37 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        if (LaneManager.Instance == null)
+        {
+            Debug.LogError(
+                "PlayerMovement não encontrou o LaneManager."
+            );
+
+            enabled = false;
+            return;
+        }
+
+        // Guarda a posição vertical definida no Inspector.
+        fixedY = transform.position.y;
+
+        // Descobre em qual lane o Player começa.
+        currentLane = LaneManager.Instance
+            .GetClosestLane(transform.position);
+
+        // Encaixa o Player no centro da lane inicial.
+        Vector3 startingPosition = transform.position;
+
+        startingPosition.x = LaneManager.Instance
+            .GetLaneCenter(currentLane).x;
+
+        startingPosition.y = fixedY;
+        startingPosition.z = 0f;
+
+        transform.position = startingPosition;
+    }
+
     void Update()
     {
         if (Pointer.current == null)
@@ -42,61 +72,81 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (Pointer.current.press.isPressed)
+        if (!Pointer.current.press.isPressed)
         {
-            Vector2 pointerPosition =
-                Pointer.current.position.ReadValue();
+            return;
+        }
 
-            Camera mainCamera = Camera.main;
+        // Impede que tocar nos botões do HUD movimente Lyren.
+        if (EventSystem.current != null &&
+            EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
-            if (mainCamera == null)
-            {
-                return;
-            }
+        Camera mainCamera = Camera.main;
 
-            Vector3 screenPosition = new Vector3(
-                pointerPosition.x,
-                pointerPosition.y,
-                -mainCamera.transform.position.z
+        if (mainCamera == null)
+        {
+            return;
+        }
+
+        Vector2 pointerPosition =
+            Pointer.current.position.ReadValue();
+
+        Vector3 screenPosition = new Vector3(
+            pointerPosition.x,
+            pointerPosition.y,
+            -mainCamera.transform.position.z
+        );
+
+        Vector3 worldPosition =
+            mainCamera.ScreenToWorldPoint(screenPosition);
+
+        int targetLane = LaneManager.Instance
+            .GetClosestLane(worldPosition);
+
+        Vector3 targetPosition = new Vector3(
+            LaneManager.Instance
+                .GetLaneCenter(targetLane).x,
+            fixedY,
+            0f
+        );
+
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetPosition,
+            moveSpeed * Time.deltaTime
+        );
+
+        // Garante que Lyren nunca se mova verticalmente.
+        Vector3 correctedPosition = transform.position;
+
+        correctedPosition.y = fixedY;
+        correctedPosition.z = 0f;
+
+        transform.position = correctedPosition;
+
+        // Encaixa exatamente no centro ao chegar perto.
+        if (Mathf.Abs(
+            transform.position.x - targetPosition.x
+        ) <= laneCenterTolerance)
+        {
+            Vector3 snappedPosition = transform.position;
+
+            snappedPosition.x = targetPosition.x;
+            snappedPosition.y = fixedY;
+
+            transform.position = snappedPosition;
+        }
+
+        if (currentLane != targetLane)
+        {
+            currentLane = targetLane;
+
+            Debug.Log(
+                $"Lane Atual: {currentLane}"
             );
-
-            Vector3 worldPosition =
-                mainCamera.ScreenToWorldPoint(screenPosition);
-
-            int lane =
-                LaneManager.Instance.GetClosestLane(worldPosition);
-
-            Vector3 targetPosition = new Vector3(
-                LaneManager.Instance.GetLaneCenter(lane).x,
-                Mathf.Clamp(
-                    worldPosition.y,
-                    -verticalLimit,
-                    verticalLimit
-                ),
-                0f
-            );
-
-            transform.position = Vector3.Lerp(
-                transform.position,
-                targetPosition,
-                moveSpeed * Time.deltaTime
-            );
-
-            // Encaixa exatamente no centro quando estiver próximo.
-            if (Mathf.Abs(
-                transform.position.x - targetPosition.x
-            ) <= laneCenterTolerance)
-            {
-                Vector3 snappedPosition = transform.position;
-                snappedPosition.x = targetPosition.x;
-                transform.position = snappedPosition;
-            }
-
-            if (currentLane != lane)
-            {
-                currentLane = lane;
-                Debug.Log($"Lane Atual: {currentLane}");
-            }
         }
     }
 }
