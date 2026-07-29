@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,41 +9,94 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float verticalLimit = 4.2f;
 
+    [SerializeField]
+    [Min(0.001f)]
+    private float laneCenterTolerance = 0.05f;
+
     private int currentLane = 0;
 
     public int CurrentLane => currentLane;
-    
+
+    public bool IsCenteredInLane
+    {
+        get
+        {
+            if (LaneManager.Instance == null)
+            {
+                return false;
+            }
+
+            float laneCenterX = LaneManager.Instance
+                .GetLaneCenter(currentLane).x;
+
+            return Mathf.Abs(
+                transform.position.x - laneCenterX
+            ) <= laneCenterTolerance;
+        }
+    }
+
     void Update()
     {
-        // Verifica se o botão esquerdo do mouse está pressionado
-        if (Input.GetMouseButton(0))
+        if (Pointer.current == null)
         {
-            // Pega a posição do mouse na tela
-            Vector3 mousePosition = Input.mousePosition;
+            return;
+        }
 
-            // Define a distância da câmera
-            mousePosition.z = 10f;
+        if (Pointer.current.press.isPressed)
+        {
+            Vector2 pointerPosition =
+                Pointer.current.position.ReadValue();
 
-            // Converte para posição do mundo
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Camera mainCamera = Camera.main;
 
-            // Move o Player
-            int lane = LaneManager.Instance.GetClosestLane(worldPosition);
+            if (mainCamera == null)
+            {
+                return;
+            }
+
+            Vector3 screenPosition = new Vector3(
+                pointerPosition.x,
+                pointerPosition.y,
+                -mainCamera.transform.position.z
+            );
+
+            Vector3 worldPosition =
+                mainCamera.ScreenToWorldPoint(screenPosition);
+
+            int lane =
+                LaneManager.Instance.GetClosestLane(worldPosition);
 
             Vector3 targetPosition = new Vector3(
-            LaneManager.Instance.GetLaneCenter(lane).x,
-            Mathf.Clamp(worldPosition.y, -verticalLimit, verticalLimit),
-            0f
+                LaneManager.Instance.GetLaneCenter(lane).x,
+                Mathf.Clamp(
+                    worldPosition.y,
+                    -verticalLimit,
+                    verticalLimit
+                ),
+                0f
             );
 
             transform.position = Vector3.Lerp(
-            transform.position,
-             targetPosition,
-            moveSpeed * Time.deltaTime
+                transform.position,
+                targetPosition,
+                moveSpeed * Time.deltaTime
             );
 
-            currentLane = lane;
-            Debug.Log($"Lane Atual: {currentLane}");
+            // Encaixa exatamente no centro quando estiver próximo.
+            if (Mathf.Abs(
+                transform.position.x - targetPosition.x
+            ) <= laneCenterTolerance)
+            {
+                Vector3 snappedPosition = transform.position;
+                snappedPosition.x = targetPosition.x;
+                transform.position = snappedPosition;
+            }
+
+            if (currentLane != lane)
+            {
+                currentLane = lane;
+                Debug.Log($"Lane Atual: {currentLane}");
+            }
         }
     }
 }

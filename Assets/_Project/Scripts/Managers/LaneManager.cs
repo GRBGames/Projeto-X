@@ -13,6 +13,8 @@ public class LaneManager : MonoBehaviour
 
     private float laneWidth;
 
+    public int LaneCount => laneCount;
+
     private void Awake()
     {
         if (Instance == null)
