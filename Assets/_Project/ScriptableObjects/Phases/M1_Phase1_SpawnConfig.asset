@@ -19,4 +19,4 @@ MonoBehaviour:
   startDelay: 1
   minSpawnInterval: 2
   maxSpawnInterval: 3
-  maxActiveEnemies: 2
+  maxActiveEnemies: 4
