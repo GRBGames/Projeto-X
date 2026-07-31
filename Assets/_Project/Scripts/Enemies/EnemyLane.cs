@@ -15,6 +15,8 @@ public class EnemyLane : MonoBehaviour
 
     public int CurrentLane { get; private set; }
 
+    private bool hasAssignedLane;
+
     [RuntimeInitializeOnLoadMethod(
         RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStaticData()
@@ -22,7 +24,7 @@ public class EnemyLane : MonoBehaviour
         activeEnemies.Clear();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (!activeEnemies.Contains(this))
         {
@@ -30,18 +32,30 @@ public class EnemyLane : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         activeEnemies.Remove(this);
     }
 
-    void Start()
+    private void Start()
     {
-        SetLane(startingLane);
+        if (!hasAssignedLane)
+        {
+            SetLane(startingLane);
+        }
     }
 
     public void SetLane(int newLane)
     {
+        if (LaneManager.Instance == null)
+        {
+            Debug.LogError(
+                $"{name} não encontrou o LaneManager."
+            );
+
+            return;
+        }
+
         CurrentLane = Mathf.Clamp(
             newLane,
             0,
@@ -54,5 +68,7 @@ public class EnemyLane : MonoBehaviour
             .GetLaneCenter(CurrentLane).x;
 
         transform.position = position;
+
+        hasAssignedLane = true;
     }
 }

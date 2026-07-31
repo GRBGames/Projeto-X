@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class PlayerBarrier : MonoBehaviour
 {
+    public const int EnergyUnitsPerCrystal = 2;
+
     public static PlayerBarrier Instance { get; private set; }
 
     [SerializeField]
     [Min(1)]
-    private int maxEnergy = 5;
+    private int maxEnergy = 10;
 
     public int CurrentEnergy { get; private set; }
 
@@ -17,7 +19,9 @@ public class PlayerBarrier : MonoBehaviour
 
     public event Action<int, int> EnergyChanged;
 
-    void Awake()
+    public event Action BarrierBroken;
+
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -33,7 +37,7 @@ public class PlayerBarrier : MonoBehaviour
         CurrentEnergy = maxEnergy;
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         if (Instance == this)
         {
@@ -41,15 +45,15 @@ public class PlayerBarrier : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damageUnits)
     {
-        if (damage <= 0 || IsDepleted)
+        if (damageUnits <= 0 || IsDepleted)
         {
             return;
         }
 
         CurrentEnergy = Mathf.Max(
-            CurrentEnergy - damage,
+            CurrentEnergy - damageUnits,
             0
         );
 
@@ -58,9 +62,23 @@ public class PlayerBarrier : MonoBehaviour
             maxEnergy
         );
 
+        float currentCrystals =
+            CurrentEnergy /
+            (float)EnergyUnitsPerCrystal;
+
+        float maximumCrystals =
+            maxEnergy /
+            (float)EnergyUnitsPerCrystal;
+
+        float damageInCrystals =
+            damageUnits /
+            (float)EnergyUnitsPerCrystal;
+
         Debug.Log(
-            $"Barreira Arcana recebeu {damage} de dano. " +
-            $"Energia: {CurrentEnergy}/{maxEnergy}"
+            $"Barreira Arcana recebeu " +
+            $"{damageInCrystals:0.#} cristal de dano. " +
+            $"Energia: {currentCrystals:0.#}/" +
+            $"{maximumCrystals:0.#} cristais."
         );
 
         if (IsDepleted)
@@ -74,5 +92,7 @@ public class PlayerBarrier : MonoBehaviour
         Debug.Log(
             "A Barreira Arcana foi destruída. Game Over!"
         );
+
+        BarrierBroken?.Invoke();
     }
 }
