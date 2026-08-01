@@ -5,10 +5,6 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Configuração da fase")]
-    [SerializeField]
-    private PhaseSpawnConfig phaseConfig;
-
     [Header("Posição da geração")]
     [SerializeField]
     private float spawnY = 3f;
@@ -23,13 +19,23 @@ public class EnemySpawner : MonoBehaviour
 
     public bool IsPhaseCompleted => phaseCompleted;
 
+    public bool IsRunning => spawnRoutine != null;
+
+    public PhaseSpawnConfig CurrentPhaseConfig =>
+        currentPhaseConfig;
+
+    private PhaseSpawnConfig currentPhaseConfig;
+    private Coroutine spawnRoutine;
+
     private int lastLane = -1;
     private int spawnedEnemies;
+
     private bool phaseCompleted;
+    private bool gameOver;
 
     private void Start()
     {
-        if (!ValidateConfiguration())
+        if (!ValidateDependencies())
         {
             enabled = false;
             return;
@@ -37,8 +43,6 @@ public class EnemySpawner : MonoBehaviour
 
         PlayerBarrier.Instance.BarrierBroken +=
             HandleGameOver;
-
-        StartCoroutine(SpawnLoop());
     }
 
     private void OnDestroy()
@@ -50,31 +54,105 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnLoop()
+    public bool StartPhase(
+        PhaseSpawnConfig newPhaseConfig)
+    {
+        if (gameOver)
+        {
+            Debug.LogWarning(
+                "A fase não pode começar após o Game Over."
+            );
+
+            return false;
+        }
+
+        if (!ValidateDependencies() ||
+            !ValidatePhaseConfig(newPhaseConfig))
+        {
+            return false;
+        }
+
+        if (spawnRoutine != null)
+        {
+            Debug.LogWarning(
+                "O EnemySpawner já está executando uma fase."
+            );
+
+            return false;
+        }
+
+        if (EnemyLane.ActiveEnemies.Count > 0)
+        {
+            Debug.LogWarning(
+                "Ainda existem inimigos ativos. " +
+                "A próxima fase não pode começar."
+            );
+
+            return false;
+        }
+
+        currentPhaseConfig = newPhaseConfig;
+
+        lastLane = -1;
+        spawnedEnemies = 0;
+        phaseCompleted = false;
+
+        spawnRoutine = StartCoroutine(
+            SpawnLoop(currentPhaseConfig)
+        );
+
+        Debug.Log(
+            $"Fase iniciada: {currentPhaseConfig.name}. " +
+            $"Total de inimigos: " +
+            $"{currentPhaseConfig.TotalEnemies}."
+        );
+
+        return true;
+    }
+
+    public void StopCurrentPhase()
+    {
+        if (spawnRoutine == null)
+        {
+            return;
+        }
+
+        StopCoroutine(spawnRoutine);
+        spawnRoutine = null;
+    }
+
+    private IEnumerator SpawnLoop(
+        PhaseSpawnConfig runningConfig)
     {
         yield return new WaitForSeconds(
-            phaseConfig.StartDelay
+            runningConfig.StartDelay
         );
 
         while (spawnedEnemies <
-               phaseConfig.TotalEnemies)
+               runningConfig.TotalEnemies)
         {
-            bool enemyWasSpawned = TrySpawnEnemy();
+            if (gameOver)
+            {
+                yield break;
+            }
+
+            bool enemyWasSpawned =
+                TrySpawnEnemy(runningConfig);
 
             if (enemyWasSpawned)
             {
                 spawnedEnemies++;
 
                 if (spawnedEnemies >=
-                    phaseConfig.TotalEnemies)
+                    runningConfig.TotalEnemies)
                 {
                     break;
                 }
             }
 
             float nextSpawnInterval = Random.Range(
-                phaseConfig.MinSpawnInterval,
-                phaseConfig.MaxSpawnInterval
+                runningConfig.MinSpawnInterval,
+                runningConfig.MaxSpawnInterval
             );
 
             yield return new WaitForSeconds(
@@ -84,22 +162,30 @@ public class EnemySpawner : MonoBehaviour
 
         while (EnemyLane.ActiveEnemies.Count > 0)
         {
+            if (gameOver)
+            {
+                yield break;
+            }
+
             yield return null;
         }
+
+        spawnRoutine = null;
 
         CompletePhase();
     }
 
-    private bool TrySpawnEnemy()
+    private bool TrySpawnEnemy(
+        PhaseSpawnConfig runningConfig)
     {
         if (EnemyLane.ActiveEnemies.Count >=
-            phaseConfig.MaxActiveEnemies)
+            runningConfig.MaxActiveEnemies)
         {
             return false;
         }
 
         GameObject selectedPrefab =
-            ChooseEnemyPrefab();
+            ChooseEnemyPrefab(runningConfig);
 
         if (selectedPrefab == null)
         {
@@ -129,7 +215,8 @@ public class EnemySpawner : MonoBehaviour
 
         int selectedLane = ChooseLane();
 
-        Vector3 spawnPosition = enemy.transform.position;
+        Vector3 spawnPosition =
+            enemy.transform.position;
 
         spawnPosition.y = spawnY;
         spawnPosition.z = 0f;
@@ -137,15 +224,16 @@ public class EnemySpawner : MonoBehaviour
         enemy.transform.position = spawnPosition;
 
         enemyLane.SetLane(selectedLane);
-
         enemy.SetActive(true);
 
         return true;
     }
 
-    private GameObject ChooseEnemyPrefab()
+    private GameObject ChooseEnemyPrefab(
+        PhaseSpawnConfig runningConfig)
     {
-        int totalWeight = GetTotalWeight();
+        int totalWeight =
+            GetTotalWeight(runningConfig);
 
         if (totalWeight <= 0)
         {
@@ -164,7 +252,7 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (
             PhaseSpawnConfig.EnemyOption option
-            in phaseConfig.EnemyOptions
+            in runningConfig.EnemyOptions
         )
         {
             if (option.Prefab == null ||
@@ -184,13 +272,14 @@ public class EnemySpawner : MonoBehaviour
         return null;
     }
 
-    private int GetTotalWeight()
+    private int GetTotalWeight(
+        PhaseSpawnConfig config)
     {
         int totalWeight = 0;
 
         foreach (
             PhaseSpawnConfig.EnemyOption option
-            in phaseConfig.EnemyOptions
+            in config.EnemyOptions
         )
         {
             if (option.Prefab != null &&
@@ -205,7 +294,8 @@ public class EnemySpawner : MonoBehaviour
 
     private int ChooseLane()
     {
-        int laneCount = LaneManager.Instance.LaneCount;
+        int laneCount =
+            LaneManager.Instance.LaneCount;
 
         int selectedLane = Random.Range(
             0,
@@ -232,7 +322,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void CompletePhase()
     {
-        if (phaseCompleted)
+        if (phaseCompleted || gameOver)
         {
             return;
         }
@@ -249,24 +339,17 @@ public class EnemySpawner : MonoBehaviour
 
     private void HandleGameOver()
     {
-        StopAllCoroutines();
+        gameOver = true;
+
+        StopCurrentPhase();
 
         Debug.Log(
             "EnemySpawner interrompido pelo Game Over."
         );
     }
 
-    private bool ValidateConfiguration()
+    private bool ValidateDependencies()
     {
-        if (phaseConfig == null)
-        {
-            Debug.LogError(
-                "EnemySpawner está sem Phase Config."
-            );
-
-            return false;
-        }
-
         if (EnemyPool.Instance == null)
         {
             Debug.LogError(
@@ -303,10 +386,26 @@ public class EnemySpawner : MonoBehaviour
             return false;
         }
 
-        if (GetTotalWeight() <= 0)
+        return true;
+    }
+
+    private bool ValidatePhaseConfig(
+        PhaseSpawnConfig config)
+    {
+        if (config == null)
         {
             Debug.LogError(
-                "Phase Config não possui inimigos válidos."
+                "Foi solicitado o início de uma fase vazia."
+            );
+
+            return false;
+        }
+
+        if (GetTotalWeight(config) <= 0)
+        {
+            Debug.LogError(
+                $"A configuração {config.name} " +
+                "não possui inimigos com pesos válidos."
             );
 
             return false;
