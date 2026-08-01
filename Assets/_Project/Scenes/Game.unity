@@ -163,7 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a8afc5b1f92874e9cedbb1ab424bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  phaseConfig: {fileID: 11400000, guid: 16ae9d29d76874748811ce1b259fdbd3, type: 2}
   spawnY: 3
   avoidImmediateLaneRepeat: 1
 --- !u!1 &79158965
@@ -1181,6 +1180,56 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &546784218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 546784219}
+  - component: {fileID: 546784220}
+  m_Layer: 0
+  m_Name: PhaseController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &546784219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546784218}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 879430507}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546784220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546784218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 871dade391180ee4d826c2f45fa7c89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseController
+  enemySpawner: {fileID: 44778839}
+  phaseConfigs:
+  - {fileID: 11400000, guid: 16ae9d29d76874748811ce1b259fdbd3, type: 2}
+  - {fileID: 11400000, guid: a07dc3525c940484585c3a76c4b03557, type: 2}
+  - {fileID: 11400000, guid: 53b0ab5ac5efad54ead1fb967f4cacf8, type: 2}
+  selectedPhase: 1
 --- !u!1 &571364647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,9 +1275,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPool
   enemyTypes:
-  - prefab: {fileID: 79734043340449526, guid: b4d9596cbfd5faa45806ba618d2bdf1f, type: 3}
-    initialSize: 8
-    maxSize: 15
+  - prefab: {fileID: 79734043340449526, guid: c8ab375093e36b54c8ac129693d2608c, type: 3}
+    initialSize: 6
+    maxSize: 10
+  - prefab: {fileID: 79734043340449526, guid: 37fefd05b88774442b9b3c62acb220b2, type: 3}
+    initialSize: 4
+    maxSize: 8
+  - prefab: {fileID: 79734043340449526, guid: e8f8a7fe3a1105048b3d0c71d84d34bb, type: 3}
+    initialSize: 3
+    maxSize: 6
 --- !u!1 &639373863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,6 +1485,7 @@ Transform:
   - {fileID: 639373864}
   - {fileID: 571364648}
   - {fileID: 44778838}
+  - {fileID: 546784219}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &905193400
