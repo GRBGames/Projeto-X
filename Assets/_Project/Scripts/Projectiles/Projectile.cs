@@ -47,16 +47,16 @@ public class Projectile : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other)
+{
+    IDamageable damageable =
+        other.GetComponentInParent<IDamageable>();
+
+    if (damageable == null)
     {
-        EnemyHealth enemyHealth =
-            other.GetComponentInParent<EnemyHealth>();
-
-        if (enemyHealth == null)
-        {
-            return;
-        }
-
-        enemyHealth.TakeDamage(damage);
-        gameObject.SetActive(false);
+        return;
     }
+
+    damageable.TakeDamage(damage);
+    gameObject.SetActive(false);
+}
 }

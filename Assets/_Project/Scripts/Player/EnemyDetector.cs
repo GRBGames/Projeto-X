@@ -5,7 +5,12 @@ public class EnemyDetector : MonoBehaviour
     private PlayerMovement playerMovement;
     private EnemyLane currentTarget;
 
-    public bool HasTarget => currentTarget != null;
+    public bool HasTarget =>
+    currentTarget != null ||
+    (
+        BossHealth.ActiveBoss != null &&
+        BossHealth.ActiveBoss.IsAlive
+    );
     public EnemyLane CurrentTarget => currentTarget;
 
     void Awake()
