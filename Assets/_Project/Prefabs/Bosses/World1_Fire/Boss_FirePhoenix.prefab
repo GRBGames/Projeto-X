@@ -108,6 +108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
   maxHealth: 30
+  bossElement: 1
+  weaknessElement: 4
+  weaknessMultiplier: 2
 --- !u!61 &1847854065056734382
 BoxCollider2D:
   m_ObjectHideFlags: 0

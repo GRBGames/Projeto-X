@@ -10,12 +10,22 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public bool IsAlive => CurrentHealth > 0;
 
-    void OnEnable()
+    private void OnEnable()
     {
         CurrentHealth = maxHealth;
     }
 
     public void TakeDamage(int damage)
+    {
+        TakeDamage(
+            damage,
+            DamageElement.Neutral
+        );
+    }
+
+    public void TakeDamage(
+        int damage,
+        DamageElement damageElement)
     {
         if (damage <= 0 || !IsAlive)
         {
@@ -28,7 +38,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         );
 
         Debug.Log(
-            $"{name} recebeu {damage} de dano. " +
+            $"{name} recebeu {damage} de dano " +
+            $"do elemento {damageElement}. " +
             $"Vida: {CurrentHealth}/{maxHealth}"
         );
 
