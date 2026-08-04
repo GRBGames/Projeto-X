@@ -384,7 +384,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Ol\xE1! Eu sou Lumi. Eu preferia conhec\xEA-lo em um dia menos... apocal\xEDptico."
+  m_text: "No centro do reino repousava o Cora\xE7\xE3o Primordial, fonte do equil\xEDbrio
+    entre todos os elementos."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -953,7 +954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fe60fa441db761e49b3cfbdff24370c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 507832a10db86344393b62c2747efd8b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1318,7 +1319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 855d7af8e86b27549b8bbf35d1915bfb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: caeec9437695b02449761583285b7f0d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1443,11 +1444,14 @@ MonoBehaviour:
   storyBackground: {fileID: 1122157285}
   lumiPortrait: {fileID: 1538171376}
   pageSprites:
-  - {fileID: 21300000, guid: fe60fa441db761e49b3cfbdff24370c9, type: 3}
+  - {fileID: 21300000, guid: 507832a10db86344393b62c2747efd8b, type: 3}
   - {fileID: 21300000, guid: 2f3a5a56c9f482e478f132055f1a7765, type: 3}
   - {fileID: 21300000, guid: 12844d43759125944b5a06196592a735, type: 3}
-  - {fileID: 21300000, guid: bec72852cbf162146b32591c0325756a, type: 3}
+  - {fileID: 21300000, guid: 4596cefed362bfe4ab437b322e03afde, type: 3}
   - {fileID: 21300000, guid: 4d2bde31fae4c0e40a15aecaadd2ba5d, type: 3}
+  lumiIdleSprite: {fileID: 0}
+  lumiTalkingSprite: {fileID: 0}
+  lumiFrameDelay: 0.14
   narratorName: {fileID: 964743765}
   dialogueText: {fileID: 415205576}
   continueLabel: {fileID: 1847614355}

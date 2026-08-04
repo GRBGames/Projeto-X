@@ -1,9 +1,9 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class StoryController : MonoBehaviour
 {
@@ -11,6 +11,11 @@ public class StoryController : MonoBehaviour
     [SerializeField] private Image storyBackground;
     [SerializeField] private Image lumiPortrait;
     [SerializeField] private Sprite[] pageSprites = new Sprite[5];
+
+    [Header("Animação do Lumi")]
+    [SerializeField] private Sprite lumiIdleSprite;
+    [SerializeField] private Sprite lumiTalkingSprite;
+    [SerializeField] private float lumiFrameDelay = 0.14f;
 
     [Header("Textos")]
     [SerializeField] private TMP_Text narratorName;
@@ -39,107 +44,37 @@ public class StoryController : MonoBehaviour
 
     private readonly string[] dialogues =
     {
-        "Olá! Eu sou Lumi. Eu preferia conhecê-lo em um dia menos... apocalíptico.",
-        "Durante séculos, o Núcleo Primordial manteve os quatro elementos em equilíbrio.",
+        // Cena 1 — O equilíbrio elemental
+        "No centro do reino repousava o Coração Primordial, fonte do equilíbrio entre todos os elementos.",
+        "Ao seu redor, os Cristais de Fogo, Gelo, Planta e Pedra mantinham o mundo em perfeita harmonia.",
 
-        "Até que um antigo mago da Ordem invadiu o castelo e quebrou o Núcleo.",
-        "Agora, corrompido por uma força proibida, ele é conhecido apenas como O Vazio.",
+        // Cena 2 — O roubo dos cristais
+        "Mas um antigo mago da Ordem, consumido por uma magia proibida, invadiu o santuário e roubou os quatro cristais.",
+        "O Coração permaneceu no templo, mas sem eles sua luz começou a desaparecer.",
 
-        "Ele tomou o Coração Primordial e entregou os quatro cristais aos antigos guardiões.",
-        "Corrompidos por seu poder, eles passaram a proteger os caminhos até o Castelo do Vazio.",
+        // Cena 3 — A corrupção dos guardiões
+        "O Vazio utilizou uma fagulha de cada cristal para corromper quatro antigos protetores do mundo.",
+        "Fortalecidos e dominados por sua magia, os guardiões perderam o controle e suas terras mergulharam no caos.",
 
-        "Os maiores magos tentaram recuperar os cristais, mas nenhum conseguia suportar mais de um elemento.",
-        "Então o Núcleo revelou algo inesperado: você, Lyren.",
+        // Cena 4 — A escolha de Lyren
+        "Quando o Eclipse Elemental começou, o Coração Primordial chamou por um jovem aprendiz chamado Lyren.",
+        "Por não estar ligado a apenas um elemento, somente ele poderia dominar os quatro poderes necessários para enfrentar o Vazio.",
 
-        "Sua magia não pertence ao fogo, ao gelo, à planta ou à pedra. Ela pode se unir a todos eles.",
-        "Recupere os quatro cristais, atravesse o castelo e impeça o Eclipse Elemental."
+        // Cena 5 — O início da jornada
+        "Liberte os guardiões da corrupção. Como recompensa, cada um lhe entregará sua fagulha elemental.",
+        "Dominando os quatro elementos, poderá enfrentar o Vazio, recuperar os cristais e restaurar o equilíbrio do mundo."
     };
 
     private int currentDialogueIndex;
     private Coroutine typingCoroutine;
+    private Coroutine lumiAnimationCoroutine;
     private bool isTyping;
-
     private Vector2 swipeStartPosition;
-
-    private void Update()
-{
-    if (Touchscreen.current != null)
-    {
-        HandleTouchSwipe();
-    }
-    else if (Mouse.current != null)
-    {
-        HandleMouseSwipe();
-    }
-}
-
-private void HandleTouchSwipe()
-{
-    var touch = Touchscreen.current.primaryTouch;
-
-    if (touch.press.wasPressedThisFrame)
-    {
-        swipeStartPosition = touch.position.ReadValue();
-    }
-
-    if (touch.press.wasReleasedThisFrame)
-    {
-        TrySwipe(touch.position.ReadValue());
-    }
-}
-
-private void HandleMouseSwipe()
-{
-    if (Mouse.current.leftButton.wasPressedThisFrame)
-    {
-        swipeStartPosition = Mouse.current.position.ReadValue();
-    }
-
-    if (Mouse.current.leftButton.wasReleasedThisFrame)
-    {
-        TrySwipe(Mouse.current.position.ReadValue());
-    }
-}
-
-private void TrySwipe(Vector2 endPosition)
-{
-    float horizontalDistance = endPosition.x - swipeStartPosition.x;
-
-    if (Mathf.Abs(horizontalDistance) < minimumSwipeDistance)
-    {
-        return;
-    }
-
-    if (horizontalDistance < 0f)
-    {
-        AdvanceDialogue();
-    }
-    else
-    {
-        PreviousDialogue();
-    }
-}
-
-private void PreviousDialogue()
-{
-    if (isTyping)
-    {
-        CompleteTyping();
-        return;
-    }
-
-    if (currentDialogueIndex <= 0)
-    {
-        return;
-    }
-
-    currentDialogueIndex--;
-    ShowCurrentDialogue();
-}
 
     private void Start()
     {
         narratorName.text = "LUMI";
+        SetLumiIdle();
 
         continueButton.onClick.AddListener(AdvanceDialogue);
         skipButton.onClick.AddListener(SkipStory);
@@ -147,10 +82,93 @@ private void PreviousDialogue()
         ShowCurrentDialogue();
     }
 
+    private void Update()
+    {
+        if (Touchscreen.current != null)
+        {
+            HandleTouchSwipe();
+        }
+        else if (Mouse.current != null)
+        {
+            HandleMouseSwipe();
+        }
+    }
+
     private void OnDestroy()
     {
-        continueButton.onClick.RemoveListener(AdvanceDialogue);
-        skipButton.onClick.RemoveListener(SkipStory);
+        if (continueButton != null)
+        {
+            continueButton.onClick.RemoveListener(AdvanceDialogue);
+        }
+
+        if (skipButton != null)
+        {
+            skipButton.onClick.RemoveListener(SkipStory);
+        }
+    }
+
+    private void HandleTouchSwipe()
+    {
+        var touch = Touchscreen.current.primaryTouch;
+
+        if (touch.press.wasPressedThisFrame)
+        {
+            swipeStartPosition = touch.position.ReadValue();
+        }
+
+        if (touch.press.wasReleasedThisFrame)
+        {
+            TrySwipe(touch.position.ReadValue());
+        }
+    }
+
+    private void HandleMouseSwipe()
+    {
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            swipeStartPosition = Mouse.current.position.ReadValue();
+        }
+
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            TrySwipe(Mouse.current.position.ReadValue());
+        }
+    }
+
+    private void TrySwipe(Vector2 endPosition)
+    {
+        float horizontalDistance = endPosition.x - swipeStartPosition.x;
+
+        if (Mathf.Abs(horizontalDistance) < minimumSwipeDistance)
+        {
+            return;
+        }
+
+        if (horizontalDistance < 0f)
+        {
+            AdvanceDialogue();
+        }
+        else
+        {
+            PreviousDialogue();
+        }
+    }
+
+    private void PreviousDialogue()
+    {
+        if (isTyping)
+        {
+            CompleteTyping();
+            return;
+        }
+
+        if (currentDialogueIndex <= 0)
+        {
+            return;
+        }
+
+        currentDialogueIndex--;
+        ShowCurrentDialogue();
     }
 
     public void AdvanceDialogue()
@@ -185,14 +203,10 @@ private void PreviousDialogue()
 
         continueLabel.text =
             currentDialogueIndex == dialogues.Length - 1
-            ? "INICIAR JORNADA"
-            : "CONTINUAR";
+                ? "INICIAR JORNADA"
+                : "CONTINUAR";
 
-        if (typingCoroutine != null)
-        {
-            StopCoroutine(typingCoroutine);
-        }
-
+        StopTypingAndLumiAnimation();
         typingCoroutine =
             StartCoroutine(TypeDialogue(dialogues[currentDialogueIndex]));
     }
@@ -200,6 +214,7 @@ private void PreviousDialogue()
     private IEnumerator TypeDialogue(string text)
     {
         isTyping = true;
+        StartLumiAnimation();
 
         dialogueText.text = text;
         dialogueText.maxVisibleCharacters = 0;
@@ -216,6 +231,7 @@ private void PreviousDialogue()
         dialogueText.maxVisibleCharacters = int.MaxValue;
         isTyping = false;
         typingCoroutine = null;
+        StopLumiAnimation();
     }
 
     private void CompleteTyping()
@@ -228,6 +244,66 @@ private void PreviousDialogue()
 
         dialogueText.maxVisibleCharacters = int.MaxValue;
         isTyping = false;
+        StopLumiAnimation();
+    }
+
+    private void StopTypingAndLumiAnimation()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
+        isTyping = false;
+        StopLumiAnimation();
+    }
+
+    private void StartLumiAnimation()
+    {
+        StopLumiAnimation();
+        lumiAnimationCoroutine = StartCoroutine(AnimateLumiTalking());
+    }
+
+    private IEnumerator AnimateLumiTalking()
+    {
+        bool showTalkingSprite = true;
+
+        while (isTyping)
+        {
+            Sprite nextSprite =
+                showTalkingSprite ? lumiTalkingSprite : lumiIdleSprite;
+
+            if (lumiPortrait != null && nextSprite != null)
+            {
+                lumiPortrait.sprite = nextSprite;
+            }
+
+            showTalkingSprite = !showTalkingSprite;
+
+            yield return new WaitForSecondsRealtime(
+                Mathf.Max(0.05f, lumiFrameDelay)
+            );
+        }
+    }
+
+    private void StopLumiAnimation()
+    {
+        if (lumiAnimationCoroutine != null)
+        {
+            StopCoroutine(lumiAnimationCoroutine);
+            lumiAnimationCoroutine = null;
+        }
+
+        SetLumiIdle();
+    }
+
+    private void SetLumiIdle()
+    {
+        if (lumiPortrait != null && lumiIdleSprite != null)
+        {
+            lumiPortrait.sprite = lumiIdleSprite;
+        }
     }
 
     private void UpdateBackground(int pageIndex)

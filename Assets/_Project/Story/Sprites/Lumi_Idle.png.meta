@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fe60fa441db761e49b3cfbdff24370c9
+guid: caeec9437695b02449761583285b7f0d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7397185670544914623
-    second: Story_Page_01_Core_0
+      213: 2698926430199617364
+    second: Lumi_Idle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Story_Page_01_Core_0
+      name: Lumi_Idle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1080
-        height: 1920
+        x: 98
+        y: 108
+        width: 723
+        height: 680
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fb87076ec2518a660800000000000000
-      internalID: 7397185670544914623
+      spriteID: 45716fae943847520800000000000000
+      internalID: 2698926430199617364
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Story_Page_01_Core_0: 7397185670544914623
+      Lumi_Idle_0: 2698926430199617364
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

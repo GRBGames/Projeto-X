@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 855d7af8e86b27549b8bbf35d1915bfb
+guid: 4596cefed362bfe4ab437b322e03afde
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3613350705401853611
-    second: Lumi_Portrait_0
+      213: -577178653062136533
+    second: Story_Page_04_Heart_Call_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lumi_Portrait_0
+      name: Story_Page_04_Heart_Call_0
       rect:
         serializedVersion: 2
-        x: 175
-        y: 264
-        width: 904
-        height: 720
+        x: 0
+        y: 0
+        width: 941
+        height: 1672
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ba6726c7253352230800000000000000
-      internalID: 3613350705401853611
+      spriteID: b2dfa44b2137df7f0800000000000000
+      internalID: -577178653062136533
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Lumi_Portrait_0: 3613350705401853611
+      Story_Page_04_Heart_Call_0: -577178653062136533
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
