@@ -110,6 +110,7 @@ MonoBehaviour:
   speed: 8
   disableY: 6
   damage: 1
+  damageElement: 0
 --- !u!50 &7417548623426849213
 Rigidbody2D:
   serializedVersion: 5

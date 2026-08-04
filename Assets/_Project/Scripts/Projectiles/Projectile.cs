@@ -3,24 +3,34 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
+    [Header("Movimento")]
     [SerializeField]
     private float speed = 8f;
 
     [SerializeField]
     private float disableY = 6f;
 
+    [Header("Dano")]
     [SerializeField]
     [Min(1)]
     private int damage = 1;
 
+    [SerializeField]
+    private DamageElement damageElement =
+        DamageElement.Neutral;
+
     private Rigidbody2D projectileRigidbody;
 
-    void Awake()
+    public DamageElement Element =>
+        damageElement;
+
+    private void Awake()
     {
-        projectileRigidbody = GetComponent<Rigidbody2D>();
+        projectileRigidbody =
+            GetComponent<Rigidbody2D>();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (projectileRigidbody != null)
         {
@@ -29,7 +39,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         if (projectileRigidbody != null)
         {
@@ -38,7 +48,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (transform.position.y >= disableY)
         {
@@ -46,17 +56,28 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-{
-    IDamageable damageable =
-        other.GetComponentInParent<IDamageable>();
-
-    if (damageable == null)
+    public void SetDamageElement(
+        DamageElement newDamageElement)
     {
-        return;
+        damageElement = newDamageElement;
     }
 
-    damageable.TakeDamage(damage);
-    gameObject.SetActive(false);
-}
+    private void OnTriggerEnter2D(
+        Collider2D other)
+    {
+        IDamageable damageable =
+            other.GetComponentInParent<IDamageable>();
+
+        if (damageable == null)
+        {
+            return;
+        }
+
+        damageable.TakeDamage(
+            damage,
+            damageElement
+        );
+
+        gameObject.SetActive(false);
+    }
 }

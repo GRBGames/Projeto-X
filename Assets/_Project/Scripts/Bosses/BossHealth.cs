@@ -10,6 +10,19 @@ public class BossHealth : MonoBehaviour, IDamageable
     [Min(1)]
     private int maxHealth = 30;
 
+    [Header("Configuração elemental")]
+    [SerializeField]
+    private DamageElement bossElement =
+        DamageElement.Fire;
+
+    [SerializeField]
+    private DamageElement weaknessElement =
+        DamageElement.Stone;
+
+    [SerializeField]
+    [Min(1)]
+    private int weaknessMultiplier = 2;
+
     public event Action<int, int> HealthChanged;
     public event Action BossDefeated;
 
@@ -19,11 +32,18 @@ public class BossHealth : MonoBehaviour, IDamageable
 
     public bool IsAlive => CurrentHealth > 0;
 
+    public DamageElement BossElement =>
+        bossElement;
+
+    public DamageElement WeaknessElement =>
+        weaknessElement;
+
     private bool defeatNotified;
 
     private void OnEnable()
     {
-        if (ActiveBoss != null && ActiveBoss != this)
+        if (ActiveBoss != null &&
+            ActiveBoss != this)
         {
             Debug.LogWarning(
                 "Existe mais de um BossHealth ativo na cena."
@@ -55,6 +75,16 @@ public class BossHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
+        TakeDamage(
+            damage,
+            DamageElement.Neutral
+        );
+    }
+
+    public void TakeDamage(
+        int damage,
+        DamageElement damageElement)
+    {
         if (damage <= 0 ||
             !IsAlive ||
             defeatNotified)
@@ -62,8 +92,15 @@ public class BossHealth : MonoBehaviour, IDamageable
             return;
         }
 
+        bool weaknessActivated =
+            damageElement == weaknessElement;
+
+        int finalDamage = weaknessActivated
+            ? damage * weaknessMultiplier
+            : damage;
+
         CurrentHealth = Mathf.Max(
-            CurrentHealth - damage,
+            CurrentHealth - finalDamage,
             0
         );
 
@@ -72,9 +109,17 @@ public class BossHealth : MonoBehaviour, IDamageable
             maxHealth
         );
 
+        string weaknessMessage =
+            weaknessActivated
+                ? " FRAQUEZA ELEMENTAL ATIVADA!"
+                : string.Empty;
+
         Debug.Log(
-            $"{name} recebeu {damage} de dano. " +
-            $"Vida do boss: {CurrentHealth}/{maxHealth}."
+            $"{name} ({bossElement}) recebeu " +
+            $"{finalDamage} de dano do elemento " +
+            $"{damageElement}.{weaknessMessage} " +
+            $"Vida do boss: " +
+            $"{CurrentHealth}/{maxHealth}."
         );
 
         if (CurrentHealth > 0)
