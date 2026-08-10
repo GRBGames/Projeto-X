@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class MainMenuController : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject aboutPanel;
+
+    [Header("Buttons")]
+    [SerializeField] private Button continueButton;
 
     private void Start()
     {
@@ -21,6 +25,8 @@ public class MainMenuController : MonoBehaviour
         {
             aboutPanel.SetActive(false);
         }
+
+        UpdateContinueButton();
     }
 
     public void OpenSettings()
@@ -72,7 +78,31 @@ public class MainMenuController : MonoBehaviour
 
     public void ContinueGame()
     {
+        if (!GameProgress.HasProgress)
+        {
+            Debug.Log(
+                "Ainda não existe um progresso salvo."
+            );
+
+            return;
+        }
+
         LoadSceneIfAvailable(WorldMapSceneName);
+    }
+
+    private void UpdateContinueButton()
+    {
+        if (continueButton == null)
+        {
+            Debug.LogWarning(
+                "O botão Continuar não foi configurado."
+            );
+
+            return;
+        }
+
+        continueButton.interactable =
+            GameProgress.HasProgress;
     }
 
     private void LoadSceneIfAvailable(string sceneName)

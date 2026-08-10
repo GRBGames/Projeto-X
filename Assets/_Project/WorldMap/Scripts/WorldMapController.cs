@@ -1,56 +1,102 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WorldMapController : MonoBehaviour
 {
+    private const string GameSceneName = "Game";
+
     [Header("Botões das fases em ordem")]
     [SerializeField] private Button[] stageButtons;
 
-    [Header("Progressão temporária")]
-    [SerializeField, Min(0)] private int highestUnlockedStage = 0;
+    private int highestUnlockedStage;
 
     private void Start()
     {
+        LoadProgress();
         UpdateStageButtons();
     }
 
     public void SelectStage(string stageId)
     {
-        Debug.Log($"Fase selecionada: {stageId}");
+        bool stageSelected =
+            StageSelectionData.TrySelectStage(stageId);
+
+        if (!stageSelected)
+        {
+            return;
+        }
+
+        LoadGameScene();
     }
 
     public void CompleteStageForTest(int completedStageIndex)
     {
-        // Impede que uma fase antiga libere novas fases repetidamente.
-        if (completedStageIndex != highestUnlockedStage)
-        {
-            Debug.Log(
-                $"A fase de índice {completedStageIndex} já foi concluída " +
-                "ou não é a fase atual."
-            );
+        bool stageCompleted = GameProgress.CompleteStage(
+            completedStageIndex,
+            stageButtons.Length
+        );
 
+        if (!stageCompleted)
+        {
             return;
         }
 
-        // Verifica se a última fase já foi alcançada.
-        if (highestUnlockedStage >= stageButtons.Length - 1)
-        {
-            Debug.Log("Campanha concluída. Todas as fases estão liberadas.");
-            return;
-        }
-
-        highestUnlockedStage++;
-
+        LoadProgress();
         UpdateStageButtons();
+    }
 
-        Debug.Log($"Nova fase liberada. Índice atual: {highestUnlockedStage}");
+    private void LoadProgress()
+    {
+        highestUnlockedStage =
+            GameProgress.HighestUnlockedStage;
     }
 
     private void UpdateStageButtons()
     {
         for (int i = 0; i < stageButtons.Length; i++)
         {
-            stageButtons[i].interactable = i <= highestUnlockedStage;
+            if (stageButtons[i] == null)
+            {
+                Debug.LogWarning(
+                    $"O botão do índice {i} não foi configurado."
+                );
+
+                continue;
+            }
+
+            stageButtons[i].interactable =
+                i <= highestUnlockedStage;
         }
+    }
+
+    private void LoadGameScene()
+    {
+        if (Application.CanStreamedLevelBeLoaded(GameSceneName))
+        {
+            SceneManager.LoadScene(GameSceneName);
+        }
+        else
+        {
+            Debug.LogWarning(
+                $"A cena '{GameSceneName}' não foi adicionada " +
+                "ao Build Profile."
+            );
+        }
+    }
+
+    [ContextMenu("TESTE - Concluir fase atual")]
+    private void CompleteCurrentStageForTest()
+    {
+        CompleteStageForTest(highestUnlockedStage);
+    }
+
+    [ContextMenu("TESTE - Apagar progresso")]
+    private void ResetProgressForTest()
+    {
+        GameProgress.ResetProgress();
+
+        LoadProgress();
+        UpdateStageButtons();
     }
 }

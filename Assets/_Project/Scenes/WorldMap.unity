@@ -1486,7 +1486,7 @@ MonoBehaviour:
   - {fileID: 2033509292}
   - {fileID: 1229547012}
   - {fileID: 212727114}
-  highestUnlockedStage: 0
+  highestUnlockedStage: 14
 --- !u!4 &547400208
 Transform:
   m_ObjectHideFlags: 0

@@ -42,7 +42,28 @@ public class PhaseController : MonoBehaviour
         // Aguarda os demais componentes concluírem seus métodos Start.
         yield return null;
 
-        StartPhase(selectedPhase);
+        int phaseToStart = selectedPhase;
+
+        if (StageSelectionData.HasSelection)
+        {
+        phaseToStart = StageSelectionData.StageNumber;
+
+        Debug.Log(
+        $"[PhaseController] Seleção recebida do WorldMap. " +
+        $"Região: {StageSelectionData.Region} | " +
+        $"Fase: {StageSelectionData.StageNumber} | " +
+        $"Chefe: {StageSelectionData.IsBossStage}"
+        );
+        }
+        else
+        {
+        Debug.Log(
+        $"[PhaseController] Game aberto diretamente. " +
+        $"Usando fase de teste: {selectedPhase}."
+    );
+}
+
+StartPhase(phaseToStart);
     }
 
     public bool StartPhase(int phaseNumber)
