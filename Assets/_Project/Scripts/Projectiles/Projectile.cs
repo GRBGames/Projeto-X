@@ -32,11 +32,11 @@ public class Projectile : MonoBehaviour
 
     private void OnEnable()
     {
-        if (projectileRigidbody != null)
-        {
-            projectileRigidbody.linearVelocity =
-                Vector2.up * speed;
-        }
+    if (projectileRigidbody != null)
+    {
+        projectileRigidbody.linearVelocity =
+            (Vector2)transform.up * speed;
+    }
     }
 
     private void OnDisable()

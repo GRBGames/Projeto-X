@@ -10,26 +10,57 @@ public class ProjectilePool : MonoBehaviour
     [Min(1)]
     private int initialSize = 10;
 
-    private readonly List<GameObject> projectiles =
-        new List<GameObject>();
+    private readonly List<Projectile> projectiles =
+        new List<Projectile>();
 
-    void Awake()
+    private void Awake()
     {
+        if (!ValidateSetup())
+        {
+            enabled = false;
+            return;
+        }
+
         for (int i = 0; i < initialSize; i++)
         {
             CreateProjectile();
         }
     }
 
-    public GameObject GetProjectile(
+    public Projectile GetProjectile(
         Vector3 position,
-        Quaternion rotation)
+        Quaternion rotation
+    )
     {
-        GameObject projectile = FindInactiveProjectile();
+        return GetProjectile(
+            position,
+            rotation,
+            DamageElement.Neutral
+        );
+    }
+
+    public Projectile GetProjectile(
+        Vector3 position,
+        Quaternion rotation,
+        DamageElement damageElement
+    )
+    {
+        if (!enabled)
+        {
+            return null;
+        }
+
+        Projectile projectile =
+            FindInactiveProjectile();
 
         if (projectile == null)
         {
             projectile = CreateProjectile();
+        }
+
+        if (projectile == null)
+        {
+            return null;
         }
 
         projectile.transform.SetPositionAndRotation(
@@ -37,16 +68,22 @@ public class ProjectilePool : MonoBehaviour
             rotation
         );
 
-        projectile.SetActive(true);
+        // O elemento precisa ser definido antes da ativação.
+        projectile.SetDamageElement(
+            damageElement
+        );
+
+        projectile.gameObject.SetActive(true);
 
         return projectile;
     }
 
-    private GameObject FindInactiveProjectile()
+    private Projectile FindInactiveProjectile()
     {
-        foreach (GameObject projectile in projectiles)
+        foreach (Projectile projectile in projectiles)
         {
-            if (!projectile.activeSelf)
+            if (projectile != null &&
+                !projectile.gameObject.activeSelf)
             {
                 return projectile;
             }
@@ -55,16 +92,56 @@ public class ProjectilePool : MonoBehaviour
         return null;
     }
 
-    private GameObject CreateProjectile()
+    private Projectile CreateProjectile()
     {
-        GameObject projectile = Instantiate(
+        GameObject projectileObject = Instantiate(
             projectilePrefab,
             transform
         );
 
-        projectile.SetActive(false);
+        projectileObject.SetActive(false);
+
+        Projectile projectile =
+            projectileObject.GetComponent<Projectile>();
+
+        if (projectile == null)
+        {
+            Debug.LogError(
+                $"{projectilePrefab.name} não possui " +
+                "o componente Projectile."
+            );
+
+            Destroy(projectileObject);
+            return null;
+        }
+
         projectiles.Add(projectile);
 
         return projectile;
+    }
+
+    private bool ValidateSetup()
+    {
+        if (projectilePrefab == null)
+        {
+            Debug.LogError(
+                "[ProjectilePool] " +
+                "Projectile Prefab não foi atribuído."
+            );
+
+            return false;
+        }
+
+        if (projectilePrefab.GetComponent<Projectile>() == null)
+        {
+            Debug.LogError(
+                "[ProjectilePool] O prefab selecionado " +
+                "não possui o componente Projectile."
+            );
+
+            return false;
+        }
+
+        return true;
     }
 }

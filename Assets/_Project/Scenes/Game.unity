@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 172791372}
   - component: {fileID: 172791371}
   - component: {fileID: 172791370}
+  - component: {fileID: 172791373}
   m_Layer: 5
   m_Name: FireButton
   m_TagString: Untagged
@@ -568,7 +569,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 172791371}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 538637682}
+        m_TargetAssemblyTypeName: PlayerAscensionController, Assembly-CSharp
+        m_MethodName: ActivateFire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &172791371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,6 +620,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172791368}
   m_CullTransparentMesh: 1
+--- !u!114 &172791373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172791368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4fdf544da7b324987feb3325066c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FireAscensionButton
+  ascensionController: {fileID: 538637682}
+  elementIcon: {fileID: 335289910}
 --- !u!4 &177343474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8691384747245874498, guid: aaf605a81454d0047b85e6262ecb4dad, type: 3}
@@ -1242,6 +1269,7 @@ MonoBehaviour:
   projectilePool: {fileID: 1707163964}
   firePoint: {fileID: 1000478217}
   shotsPerSecond: 3
+  tripleBurstAimDistance: 4
 --- !u!114 &538637678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,6 +1356,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &538637682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538637672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338506996606d6248b50138f9cd14d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAscensionController
+  fireUnlocked: 0
+  fireDuration: 10
+  fireCooldown: 5
 --- !u!1 &546784218
 GameObject:
   m_ObjectHideFlags: 0
@@ -4508,6 +4551,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5340287822061161667, guid: a6b521171ef0c264f874cc6e92826600, type: 3}
       insertIndex: -1
       addedObject: {fileID: 538637680}
+    - targetCorrespondingSourceObject: {fileID: 5340287822061161667, guid: a6b521171ef0c264f874cc6e92826600, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 538637682}
   m_SourcePrefab: {fileID: 100100000, guid: a6b521171ef0c264f874cc6e92826600, type: 3}
 --- !u!1001 &2646277485095154194
 PrefabInstance:
