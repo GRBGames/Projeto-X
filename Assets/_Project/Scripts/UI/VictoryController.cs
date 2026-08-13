@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,6 +7,9 @@ public class VictoryController : MonoBehaviour
 {
     private const string MainMenuSceneName =
         "MainMenu";
+
+    private const string WorldMapSceneName =
+        "WorldMap";
 
     [Header("Referências")]
     [SerializeField]
@@ -16,6 +20,9 @@ public class VictoryController : MonoBehaviour
 
     [SerializeField]
     private Button returnToMenuButton;
+
+    [SerializeField]
+    private TMP_Text returnButtonLabel;
 
     private bool initialized;
     private bool victoryShown;
@@ -40,8 +47,10 @@ public class VictoryController : MonoBehaviour
             ShowVictory;
 
         returnToMenuButton.onClick.AddListener(
-            ReturnToMainMenu
+            ReturnAfterVictory
         );
+
+        UpdateReturnButtonLabel();
 
         initialized = true;
     }
@@ -66,17 +75,50 @@ public class VictoryController : MonoBehaviour
 
         Debug.Log(
             "[VictoryController] Vitória! " +
-            "Cristal de Fogo recuperado."
+            "Chefe derrotado."
         );
     }
 
-    private void ReturnToMainMenu()
+    private void UpdateReturnButtonLabel()
+{
+    if (returnButtonLabel == null)
+    {
+        Debug.LogWarning(
+            "[VictoryController] Texto do botão de retorno " +
+            "não foi atribuído."
+        );
+
+        return;
+    }
+
+    returnButtonLabel.text =
+        StageSelectionData.HasSelection
+            ? "VOLTAR AO MAPA"
+            : "VOLTAR AO MENU";
+}   
+
+    private void ReturnAfterVictory()
     {
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene(
-            MainMenuSceneName
-        );
+        string destinationScene =
+            StageSelectionData.HasSelection
+                ? WorldMapSceneName
+                : MainMenuSceneName;
+
+        if (Application.CanStreamedLevelBeLoaded(
+                destinationScene
+            ))
+        {
+            SceneManager.LoadScene(destinationScene);
+        }
+        else
+        {
+            Debug.LogWarning(
+                $"A cena '{destinationScene}' não foi adicionada " +
+                "ao Build Profile."
+            );
+        }
     }
 
     private bool ValidateSetup()
@@ -111,6 +153,16 @@ public class VictoryController : MonoBehaviour
             return false;
         }
 
+        if (returnButtonLabel == null)
+{
+    Debug.LogError(
+        "[VictoryController] " +
+        "Return Button Label não foi atribuído."
+    );
+
+    return false;
+}
+
         return true;
     }
 
@@ -125,7 +177,7 @@ public class VictoryController : MonoBehaviour
             ShowVictory;
 
         returnToMenuButton.onClick.RemoveListener(
-            ReturnToMainMenu
+            ReturnAfterVictory
         );
     }
 }

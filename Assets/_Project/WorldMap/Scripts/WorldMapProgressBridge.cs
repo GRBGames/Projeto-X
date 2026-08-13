@@ -8,7 +8,11 @@ public class WorldMapProgressBridge : MonoBehaviour
     private const int TotalStageCount = 15;
 
     [Header("Referências")]
-    [SerializeField] private PhaseController phaseController;
+    [SerializeField]
+    private PhaseController phaseController;
+
+    [SerializeField]
+    private BossEncounterController bossEncounterController;
 
     private bool isReturningToWorldMap;
 
@@ -19,6 +23,12 @@ public class WorldMapProgressBridge : MonoBehaviour
             phaseController.PhaseFinished +=
                 HandlePhaseFinished;
         }
+
+        if (bossEncounterController != null)
+        {
+            bossEncounterController.BossBattleCompleted +=
+                HandleBossBattleCompleted;
+        }
     }
 
     private void OnDisable()
@@ -27,6 +37,12 @@ public class WorldMapProgressBridge : MonoBehaviour
         {
             phaseController.PhaseFinished -=
                 HandlePhaseFinished;
+        }
+
+        if (bossEncounterController != null)
+        {
+            bossEncounterController.BossBattleCompleted -=
+                HandleBossBattleCompleted;
         }
     }
 
@@ -65,15 +81,56 @@ public class WorldMapProgressBridge : MonoBehaviour
             return;
         }
 
-        GameProgress.CompleteStage(
-            StageSelectionData.GlobalStageIndex,
-            TotalStageCount
-        );
+        CompleteSelectedStage();
 
         if (!isReturningToWorldMap)
         {
             StartCoroutine(ReturnToWorldMap());
         }
+    }
+
+    private void HandleBossBattleCompleted()
+    {
+        if (!StageSelectionData.HasSelection)
+        {
+            Debug.Log(
+                "[WorldMapProgressBridge] Boss derrotado em teste direto. " +
+                "O progresso do mapa não será alterado."
+            );
+
+            return;
+        }
+
+        if (!StageSelectionData.IsBossStage)
+        {
+            Debug.LogWarning(
+                "[WorldMapProgressBridge] Uma batalha de chefe terminou, " +
+                "mas a fase selecionada não é uma fase de chefe."
+            );
+
+            return;
+        }
+
+        CompleteSelectedStage();
+
+        if (StageSelectionData.Region == StageRegion.Fire)
+        {
+         GameProgress.UnlockFire();
+        }
+
+        Debug.Log(
+        "[WorldMapProgressBridge] Fase de chefe concluída. " +
+         "Progresso e elemento salvos; " +
+         "aguardando o botão do painel de vitória."
+        );
+    }
+
+    private void CompleteSelectedStage()
+    {
+        GameProgress.CompleteStage(
+            StageSelectionData.GlobalStageIndex,
+            TotalStageCount
+        );
     }
 
     private IEnumerator ReturnToWorldMap()

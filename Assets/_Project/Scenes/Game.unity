@@ -957,6 +957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldMapProgressBridge
   phaseController: {fileID: 546784220}
+  bossEncounterController: {fileID: 1628928757}
 --- !u!4 &388111126
 Transform:
   m_ObjectHideFlags: 0
@@ -3206,6 +3207,7 @@ MonoBehaviour:
   encounterController: {fileID: 1628928757}
   victoryPanel: {fileID: 1300314162}
   returnToMenuButton: {fileID: 1200211141}
+  returnButtonLabel: {fileID: 858634362}
 --- !u!1 &1394763809
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,9 @@ public static class GameProgress
     private const string CampaignCompletedKey =
         "CampaignCompleted";
 
+    private const string FireUnlockedKey =
+        "FireAscensionUnlocked";
+
     public static int HighestUnlockedStage
     {
         get
@@ -39,6 +42,17 @@ public static class GameProgress
         {
             return PlayerPrefs.GetInt(
                 CampaignCompletedKey,
+                0
+            ) == 1;
+        }
+    }
+
+    public static bool IsFireUnlocked
+    {
+        get
+        {
+            return PlayerPrefs.GetInt(
+                FireUnlockedKey,
                 0
             ) == 1;
         }
@@ -102,11 +116,27 @@ public static class GameProgress
         return true;
     }
 
+    public static void UnlockFire()
+    {
+        if (IsFireUnlocked)
+        {
+            return;
+        }
+
+        PlayerPrefs.SetInt(FireUnlockedKey, 1);
+        PlayerPrefs.Save();
+
+        Debug.Log(
+            "[GameProgress] Ascensão de Fogo desbloqueada e salva."
+        );
+    }
+
     public static void ResetProgress()
     {
         PlayerPrefs.DeleteKey(HighestUnlockedStageKey);
         PlayerPrefs.DeleteKey(HasProgressKey);
         PlayerPrefs.DeleteKey(CampaignCompletedKey);
+        PlayerPrefs.DeleteKey(FireUnlockedKey);
         PlayerPrefs.Save();
 
         Debug.Log("Progresso apagado.");

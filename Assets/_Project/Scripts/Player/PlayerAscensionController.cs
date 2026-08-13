@@ -67,6 +67,24 @@ public class PlayerAscensionController : MonoBehaviour
 
             enabled = false;
         }
+
+        if (StageSelectionData.HasSelection)
+        {
+            fireUnlocked =
+            GameProgress.IsFireUnlocked;
+
+            Debug.Log(
+                "[PlayerAscensionController] " +
+                $"Desbloqueio de Fogo carregado: {fireUnlocked}."
+            );
+        }
+        else
+        {
+            Debug.Log(
+                "[PlayerAscensionController] Game aberto diretamente. " +
+                 "Mantendo a configuração de teste do Inspector."
+            );
+        }
     }
 
     public void UnlockFire()
