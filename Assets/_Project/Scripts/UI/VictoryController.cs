@@ -1,15 +1,11 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class VictoryController : MonoBehaviour
 {
-    private const string MainMenuSceneName =
-        "MainMenu";
-
-    private const string WorldMapSceneName =
-        "WorldMap";
+    private const string MainMenuSceneName = "MainMenu";
+    private const string WorldMapSceneName = "WorldMap";
 
     [Header("Referências")]
     [SerializeField]
@@ -18,11 +14,12 @@ public class VictoryController : MonoBehaviour
     [SerializeField]
     private GameObject victoryPanel;
 
+    [Header("Botões")]
     [SerializeField]
-    private Button returnToMenuButton;
+    private Button returnToWorldMapButton;
 
     [SerializeField]
-    private TMP_Text returnButtonLabel;
+    private Button returnToMenuButton;
 
     private bool initialized;
     private bool victoryShown;
@@ -43,14 +40,17 @@ public class VictoryController : MonoBehaviour
             return;
         }
 
-        encounterController.BossBattleCompleted +=
-            ShowVictory;
+        encounterController.BossBattleCompleted += ShowVictory;
 
-        returnToMenuButton.onClick.AddListener(
-            ReturnAfterVictory
+        returnToWorldMapButton.onClick.AddListener(
+            ReturnToWorldMap
         );
 
-        UpdateReturnButtonLabel();
+        returnToMenuButton.onClick.AddListener(
+            ReturnToMainMenu
+        );
+
+        ConfigureReturnButtons();
 
         initialized = true;
     }
@@ -74,48 +74,46 @@ public class VictoryController : MonoBehaviour
         Time.timeScale = 0f;
 
         Debug.Log(
-            "[VictoryController] Vitória! " +
-            "Chefe derrotado."
+            "[VictoryController] Vitória! Chefe derrotado."
         );
     }
 
-    private void UpdateReturnButtonLabel()
-{
-    if (returnButtonLabel == null)
+    private void ConfigureReturnButtons()
     {
-        Debug.LogWarning(
-            "[VictoryController] Texto do botão de retorno " +
-            "não foi atribuído."
+        bool enteredFromWorldMap =
+            StageSelectionData.HasSelection;
+
+        returnToWorldMapButton.gameObject.SetActive(
+            enteredFromWorldMap
         );
 
-        return;
+        returnToMenuButton.gameObject.SetActive(
+            !enteredFromWorldMap
+        );
     }
 
-    returnButtonLabel.text =
-        StageSelectionData.HasSelection
-            ? "VOLTAR AO MAPA"
-            : "VOLTAR AO MENU";
-}   
+    private void ReturnToWorldMap()
+    {
+        LoadSceneIfAvailable(WorldMapSceneName);
+    }
 
-    private void ReturnAfterVictory()
+    private void ReturnToMainMenu()
+    {
+        LoadSceneIfAvailable(MainMenuSceneName);
+    }
+
+    private void LoadSceneIfAvailable(string sceneName)
     {
         Time.timeScale = 1f;
 
-        string destinationScene =
-            StageSelectionData.HasSelection
-                ? WorldMapSceneName
-                : MainMenuSceneName;
-
-        if (Application.CanStreamedLevelBeLoaded(
-                destinationScene
-            ))
+        if (Application.CanStreamedLevelBeLoaded(sceneName))
         {
-            SceneManager.LoadScene(destinationScene);
+            SceneManager.LoadScene(sceneName);
         }
         else
         {
             Debug.LogWarning(
-                $"A cena '{destinationScene}' não foi adicionada " +
+                $"A cena '{sceneName}' não foi adicionada " +
                 "ao Build Profile."
             );
         }
@@ -143,6 +141,16 @@ public class VictoryController : MonoBehaviour
             return false;
         }
 
+        if (returnToWorldMapButton == null)
+        {
+            Debug.LogError(
+                "[VictoryController] " +
+                "Return To World Map Button não foi atribuído."
+            );
+
+            return false;
+        }
+
         if (returnToMenuButton == null)
         {
             Debug.LogError(
@@ -152,16 +160,6 @@ public class VictoryController : MonoBehaviour
 
             return false;
         }
-
-        if (returnButtonLabel == null)
-{
-    Debug.LogError(
-        "[VictoryController] " +
-        "Return Button Label não foi atribuído."
-    );
-
-    return false;
-}
 
         return true;
     }
@@ -173,11 +171,14 @@ public class VictoryController : MonoBehaviour
             return;
         }
 
-        encounterController.BossBattleCompleted -=
-            ShowVictory;
+        encounterController.BossBattleCompleted -= ShowVictory;
+
+        returnToWorldMapButton.onClick.RemoveListener(
+            ReturnToWorldMap
+        );
 
         returnToMenuButton.onClick.RemoveListener(
-            ReturnAfterVictory
+            ReturnToMainMenu
         );
     }
 }
