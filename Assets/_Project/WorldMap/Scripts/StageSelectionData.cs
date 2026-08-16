@@ -12,7 +12,17 @@ public enum StageRegion
 
 public static class StageSelectionData
 {
-
+    [RuntimeInitializeOnLoadMethod(
+     RuntimeInitializeLoadType.SubsystemRegistration
+    )]
+    private static void ResetRuntimeState()
+    {
+        HasSelection = false;
+        StageId = "Fire_1";
+        Region = StageRegion.Fire;
+        StageNumber = 1;
+        GlobalStageIndex = 0;
+    }
     public static bool HasSelection { get; private set; }
     
     public static string StageId { get; private set; } =

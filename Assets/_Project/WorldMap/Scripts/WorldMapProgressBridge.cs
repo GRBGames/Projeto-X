@@ -1,10 +1,7 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class WorldMapProgressBridge : MonoBehaviour
 {
-    private const string WorldMapSceneName = "WorldMap";
     private const int TotalStageCount = 15;
 
     [Header("Referências")]
@@ -13,8 +10,6 @@ public class WorldMapProgressBridge : MonoBehaviour
 
     [SerializeField]
     private BossEncounterController bossEncounterController;
-
-    private bool isReturningToWorldMap;
 
     private void OnEnable()
     {
@@ -83,10 +78,10 @@ public class WorldMapProgressBridge : MonoBehaviour
 
         CompleteSelectedStage();
 
-        if (!isReturningToWorldMap)
-        {
-            StartCoroutine(ReturnToWorldMap());
-        }
+        Debug.Log(
+            "[WorldMapProgressBridge] Fase comum concluída. " +
+            "Progresso salvo; aguardando o painel de vitória."
+        );
     }
 
     private void HandleBossBattleCompleted()
@@ -115,13 +110,13 @@ public class WorldMapProgressBridge : MonoBehaviour
 
         if (StageSelectionData.Region == StageRegion.Fire)
         {
-         GameProgress.UnlockFire();
+            GameProgress.UnlockFire();
         }
 
         Debug.Log(
-        "[WorldMapProgressBridge] Fase de chefe concluída. " +
-         "Progresso e elemento salvos; " +
-         "aguardando o botão do painel de vitória."
+            "[WorldMapProgressBridge] Fase de chefe concluída. " +
+            "Progresso e elemento salvos; " +
+            "aguardando o botão do painel de vitória."
         );
     }
 
@@ -131,29 +126,5 @@ public class WorldMapProgressBridge : MonoBehaviour
             StageSelectionData.GlobalStageIndex,
             TotalStageCount
         );
-    }
-
-    private IEnumerator ReturnToWorldMap()
-    {
-        isReturningToWorldMap = true;
-
-        // Aguarda o PhaseController terminar o evento atual.
-        yield return null;
-
-        if (Application.CanStreamedLevelBeLoaded(
-                WorldMapSceneName
-            ))
-        {
-            SceneManager.LoadScene(WorldMapSceneName);
-        }
-        else
-        {
-            isReturningToWorldMap = false;
-
-            Debug.LogWarning(
-                $"A cena '{WorldMapSceneName}' não foi adicionada " +
-                "ao Build Profile."
-            );
-        }
     }
 }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,28 +8,81 @@ public class VictoryController : MonoBehaviour
     private const string MainMenuSceneName = "MainMenu";
     private const string WorldMapSceneName = "WorldMap";
 
+    private static readonly string[] FireMemoryPages =
+    {
+        "<b>LUMI</b>\n\n" +
+        "A Fagulha carrega mais do que poder, Lyren. " +
+        "Ela também guarda uma memória.",
+
+        "<b>LUMI</b>\n\n" +
+        "Antes de ser chamado de Vazio, ele foi um mago " +
+        "da Ordem Arcana... um dos nossos.",
+
+        "<b>LYREN</b>\n\n" +
+        "Então ele conhece os segredos da Ordem. " +
+        "Mas o que fez um de seus magos se voltar contra " +
+        "tudo o que jurou proteger?"
+    };
+
     [Header("Referências")]
+    [SerializeField]
+    private PhaseController phaseController;
+
     [SerializeField]
     private BossEncounterController encounterController;
 
+    [Header("Vitória do chefe")]
     [SerializeField]
     private GameObject victoryPanel;
 
-    [Header("Botões")]
     [SerializeField]
     private Button returnToWorldMapButton;
 
     [SerializeField]
     private Button returnToMenuButton;
 
+    [Header("Vitória das fases comuns")]
+    [SerializeField]
+    private GameObject stageVictoryPanel;
+
+    [SerializeField]
+    private Button stageReturnToWorldMapButton;
+
+    [SerializeField]
+    private Button stageReturnToMenuButton;
+
+    [Header("Memória do Vazio")]
+    [SerializeField]
+    private GameObject bossMemoryPanel;
+
+    [SerializeField]
+    private TMP_Text bossMemoryText;
+
+    [SerializeField]
+    private Button bossMemoryContinueButton;
+
+    [SerializeField]
+    private TMP_Text bossMemoryContinueButtonText;
+
     private bool initialized;
     private bool victoryShown;
+    private int currentMemoryPage;
 
     private void Awake()
     {
         if (victoryPanel != null)
         {
             victoryPanel.SetActive(false);
+        }
+
+        if (stageVictoryPanel != null)
+        {
+            stageVictoryPanel.SetActive(false);
+        }
+
+        if (bossMemoryPanel != null)
+        {
+            bossMemoryPanel.SetActive(false);
         }
     }
 
@@ -40,14 +94,26 @@ public class VictoryController : MonoBehaviour
             return;
         }
 
-        encounterController.BossBattleCompleted += ShowVictory;
+        phaseController.PhaseFinished +=
+            HandlePhaseFinished;
+
+        encounterController.BossBattleCompleted +=
+            ShowBossVictory;
 
         returnToWorldMapButton.onClick.AddListener(
+            ShowBossMemory
+        );
+
+        stageReturnToWorldMapButton.onClick.AddListener(
             ReturnToWorldMap
         );
 
-        returnToMenuButton.onClick.AddListener(
+        stageReturnToMenuButton.onClick.AddListener(
             ReturnToMainMenu
+        );
+
+        bossMemoryContinueButton.onClick.AddListener(
+            AdvanceBossMemory
         );
 
         ConfigureReturnButtons();
@@ -55,7 +121,33 @@ public class VictoryController : MonoBehaviour
         initialized = true;
     }
 
-    private void ShowVictory()
+    private void HandlePhaseFinished(
+        int completedPhaseNumber
+    )
+    {
+        if (completedPhaseNumber == 3)
+        {
+            return;
+        }
+
+        ShowVictoryPanel(
+            stageVictoryPanel,
+            $"Fase {completedPhaseNumber} concluída."
+        );
+    }
+
+    private void ShowBossVictory()
+    {
+        ShowVictoryPanel(
+            victoryPanel,
+            "Chefe derrotado."
+        );
+    }
+
+    private void ShowVictoryPanel(
+        GameObject panel,
+        string victoryMessage
+    )
     {
         if (victoryShown)
         {
@@ -69,27 +161,68 @@ public class VictoryController : MonoBehaviour
         }
 
         victoryShown = true;
-        victoryPanel.SetActive(true);
+        panel.SetActive(true);
 
         Time.timeScale = 0f;
 
         Debug.Log(
-            "[VictoryController] Vitória! Chefe derrotado."
+            $"[VictoryController] Vitória! {victoryMessage}"
         );
+    }
+
+    private void ShowBossMemory()
+    {
+        if (!victoryShown)
+        {
+            return;
+        }
+
+        victoryPanel.SetActive(false);
+        bossMemoryPanel.SetActive(true);
+
+        currentMemoryPage = 0;
+        DisplayCurrentMemoryPage();
+
+        Debug.Log(
+            "[VictoryController] Memória do Vazio iniciada."
+        );
+    }
+
+    private void AdvanceBossMemory()
+    {
+        if (currentMemoryPage <
+            FireMemoryPages.Length - 1)
+        {
+            currentMemoryPage++;
+            DisplayCurrentMemoryPage();
+            return;
+        }
+
+        ReturnToWorldMap();
+    }
+
+    private void DisplayCurrentMemoryPage()
+    {
+        bossMemoryText.text =
+            FireMemoryPages[currentMemoryPage];
+
+        bool isLastPage =
+            currentMemoryPage ==
+            FireMemoryPages.Length - 1;
+
+        bossMemoryContinueButtonText.text =
+            isLastPage
+                ? "VOLTAR AO MAPA"
+                : "CONTINUAR";
     }
 
     private void ConfigureReturnButtons()
     {
-        bool enteredFromWorldMap =
-            StageSelectionData.HasSelection;
+        returnToWorldMapButton.gameObject.SetActive(true);
+        returnToMenuButton.gameObject.SetActive(false);
 
-        returnToWorldMapButton.gameObject.SetActive(
-            enteredFromWorldMap
-        );
-
-        returnToMenuButton.gameObject.SetActive(
-            !enteredFromWorldMap
-        );
+        stageReturnToWorldMapButton.gameObject.SetActive(true);
+        stageReturnToMenuButton.gameObject.SetActive(true);
     }
 
     private void ReturnToWorldMap()
@@ -121,47 +254,121 @@ public class VictoryController : MonoBehaviour
 
     private bool ValidateSetup()
     {
-        if (encounterController == null)
+        if (!ValidateReference(
+                phaseController,
+                "Phase Controller"
+            ))
         {
-            Debug.LogError(
-                "[VictoryController] " +
-                "Encounter Controller não foi atribuído."
-            );
-
             return false;
         }
 
-        if (victoryPanel == null)
+        if (!ValidateReference(
+                encounterController,
+                "Encounter Controller"
+            ))
         {
-            Debug.LogError(
-                "[VictoryController] " +
-                "Victory Panel não foi atribuído."
-            );
-
             return false;
         }
 
-        if (returnToWorldMapButton == null)
+        if (!ValidateReference(
+                victoryPanel,
+                "Victory Panel"
+            ))
         {
-            Debug.LogError(
-                "[VictoryController] " +
-                "Return To World Map Button não foi atribuído."
-            );
-
             return false;
         }
 
-        if (returnToMenuButton == null)
+        if (!ValidateReference(
+                returnToWorldMapButton,
+                "Return To World Map Button"
+            ))
         {
-            Debug.LogError(
-                "[VictoryController] " +
-                "Return To Menu Button não foi atribuído."
-            );
+            return false;
+        }
 
+        if (!ValidateReference(
+                returnToMenuButton,
+                "Return To Menu Button"
+            ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
+                stageVictoryPanel,
+                "Stage Victory Panel"
+            ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
+                stageReturnToWorldMapButton,
+                "Stage Return To World Map Button"
+            ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
+                stageReturnToMenuButton,
+                "Stage Return To Menu Button"
+            ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
+                bossMemoryPanel,
+                "Boss Memory Panel"
+            ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
+                bossMemoryText,
+                "Boss Memory Text"
+            ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
+                bossMemoryContinueButton,
+                "Boss Memory Continue Button"
+            ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
+                bossMemoryContinueButtonText,
+                "Boss Memory Continue Button Text"
+            ))
+        {
             return false;
         }
 
         return true;
+    }
+
+    private bool ValidateReference(
+        Object reference,
+        string referenceName
+    )
+    {
+        if (reference != null)
+        {
+            return true;
+        }
+
+        Debug.LogError(
+            $"[VictoryController] {referenceName} " +
+            "não foi atribuído."
+        );
+
+        return false;
     }
 
     private void OnDestroy()
@@ -171,14 +378,26 @@ public class VictoryController : MonoBehaviour
             return;
         }
 
-        encounterController.BossBattleCompleted -= ShowVictory;
+        phaseController.PhaseFinished -=
+            HandlePhaseFinished;
+
+        encounterController.BossBattleCompleted -=
+            ShowBossVictory;
 
         returnToWorldMapButton.onClick.RemoveListener(
+            ShowBossMemory
+        );
+
+        stageReturnToWorldMapButton.onClick.RemoveListener(
             ReturnToWorldMap
         );
 
-        returnToMenuButton.onClick.RemoveListener(
+        stageReturnToMenuButton.onClick.RemoveListener(
             ReturnToMainMenu
+        );
+
+        bossMemoryContinueButton.onClick.RemoveListener(
+            AdvanceBossMemory
         );
     }
 }
