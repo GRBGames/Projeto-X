@@ -343,6 +343,14 @@ public class VictoryController : MonoBehaviour
         }
 
         if (!ValidateReference(
+                bossMemoryText,
+                "Boss Memory Text"
+            ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
         bossMemoryImage,
         "Boss Memory Image"
     ))

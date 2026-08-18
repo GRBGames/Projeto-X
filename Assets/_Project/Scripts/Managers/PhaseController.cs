@@ -8,9 +8,13 @@ public class PhaseController : MonoBehaviour
     [SerializeField] private EnemySpawner enemySpawner;
     private PlayerBarrier playerBarrier;
 
-    [Header("Fases do mapa")]
-    [SerializeField] private PhaseSpawnConfig[] phaseConfigs =
-        new PhaseSpawnConfig[3];
+    [Header("Configurações por região")]
+    [SerializeField] private RegionPhaseConfig[] regionConfigs =
+        new RegionPhaseConfig[1];
+
+    [Header("Região selecionada para teste")]
+    [SerializeField] private StageRegion selectedRegion =
+        StageRegion.Fire;
 
     [Header("Fase selecionada para teste")]
     [Range(1, 3)]
@@ -42,43 +46,40 @@ public class PhaseController : MonoBehaviour
         // Aguarda os demais componentes concluírem seus métodos Start.
         yield return null;
 
+        StageRegion regionToStart = selectedRegion;
         int phaseToStart = selectedPhase;
 
         if (StageSelectionData.HasSelection)
         {
-        phaseToStart = StageSelectionData.StageNumber;
+            regionToStart = StageSelectionData.Region;
+            phaseToStart = StageSelectionData.StageNumber;
 
-        Debug.Log(
-        $"[PhaseController] Seleção recebida do WorldMap. " +
-        $"Região: {StageSelectionData.Region} | " +
-        $"Fase: {StageSelectionData.StageNumber} | " +
-        $"Chefe: {StageSelectionData.IsBossStage}"
-        );
+            Debug.Log(
+                $"[PhaseController] Seleção recebida do WorldMap. " +
+                $"Região: {regionToStart} | " +
+                $"Fase: {phaseToStart} | " +
+                $"Chefe: {StageSelectionData.IsBossStage}"
+            );
         }
         else
         {
-        Debug.Log(
-        $"[PhaseController] Game aberto diretamente. " +
-        $"Usando fase de teste: {selectedPhase}."
-    );
-}
+            Debug.Log(
+                $"[PhaseController] Game aberto diretamente. " +
+                $"Usando região de teste: {regionToStart} | " +
+                $"Fase: {phaseToStart}."
+            );
+        }
 
-StartPhase(phaseToStart);
+        StartPhase(regionToStart, phaseToStart);
     }
 
-    public bool StartPhase(int phaseNumber)
+    public bool StartPhase(
+        StageRegion region,
+        int phaseNumber
+    )
     {
         if (!initialized || IsBlocked)
         {
-            return false;
-        }
-
-        if (phaseNumber < 1 || phaseNumber > phaseConfigs.Length)
-        {
-            Debug.LogError(
-                $"[PhaseController] A fase {phaseNumber} não existe."
-            );
-
             return false;
         }
 
@@ -91,8 +92,48 @@ StartPhase(phaseToStart);
             return false;
         }
 
-        PhaseSpawnConfig selectedConfig =
-            phaseConfigs[phaseNumber - 1];
+        RegionPhaseConfig selectedRegionConfig = null;
+
+        if (regionConfigs != null)
+        {
+            for (int i = 0; i < regionConfigs.Length; i++)
+            {
+                RegionPhaseConfig regionConfig =
+                    regionConfigs[i];
+
+                if (regionConfig == null ||
+                    regionConfig.Region != region)
+                {
+                    continue;
+                }
+
+                selectedRegionConfig = regionConfig;
+                break;
+            }
+        }
+
+        if (selectedRegionConfig == null)
+        {
+            Debug.LogError(
+                $"[PhaseController] A região {region} " +
+                "não possui configuração."
+            );
+
+            return false;
+        }
+
+        if (!selectedRegionConfig.TryGetPhaseConfig(
+                phaseNumber,
+                out PhaseSpawnConfig selectedConfig
+            ))
+        {
+            Debug.LogError(
+                $"[PhaseController] A fase {phaseNumber} " +
+                $"não está configurada para a região {region}."
+            );
+
+            return false;
+        }
 
         CurrentPhaseNumber = phaseNumber;
 
@@ -103,7 +144,8 @@ StartPhase(phaseToStart);
         }
 
         Debug.Log(
-            $"[PhaseController] Fase {phaseNumber} iniciada."
+            $"[PhaseController] Região {region}, " +
+            $"fase {phaseNumber} iniciada."
         );
 
         return true;
@@ -169,35 +211,62 @@ StartPhase(phaseToStart);
 
         if (playerBarrier == null)
         {
-         Debug.LogError(
-        "[PhaseController] PlayerBarrier não foi atribuído."
-          );
-
-          return false;
-        }
-
-        if (phaseConfigs == null || phaseConfigs.Length != 3)
-        {
             Debug.LogError(
-                "[PhaseController] Devem existir exatamente três configurações."
+                "[PhaseController] PlayerBarrier não foi atribuído."
             );
 
             return false;
         }
 
-        for (int i = 0; i < phaseConfigs.Length; i++)
-        {
-            if (phaseConfigs[i] != null)
-            {
-                continue;
-            }
+        if (regionConfigs == null || regionConfigs.Length == 0)
+{
+    Debug.LogError(
+        "[PhaseController] Nenhuma região foi configurada."
+    );
 
+    return false;
+}
+
+for (int i = 0; i < regionConfigs.Length; i++)
+{
+    RegionPhaseConfig regionConfig = regionConfigs[i];
+
+    if (regionConfig == null)
+    {
+        Debug.LogError(
+            $"[PhaseController] A configuração regional " +
+            $"{i} está vazia."
+        );
+
+        return false;
+    }
+
+    if (!regionConfig.IsValid())
+    {
+        Debug.LogError(
+            $"[PhaseController] A região " +
+            $"{regionConfig.Region} não possui três fases válidas."
+        );
+
+        return false;
+    }
+
+    for (int j = i + 1; j < regionConfigs.Length; j++)
+    {
+        RegionPhaseConfig otherConfig = regionConfigs[j];
+
+        if (otherConfig != null &&
+            otherConfig.Region == regionConfig.Region)
+        {
             Debug.LogError(
-                $"[PhaseController] Configuração da fase {i + 1} está vazia."
+                $"[PhaseController] A região " +
+                $"{regionConfig.Region} foi configurada mais de uma vez."
             );
 
             return false;
         }
+    }
+}
 
         return true;
     }

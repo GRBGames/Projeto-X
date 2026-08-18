@@ -2430,10 +2430,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhaseController
   enemySpawner: {fileID: 44778839}
-  phaseConfigs:
-  - {fileID: 11400000, guid: 16ae9d29d76874748811ce1b259fdbd3, type: 2}
-  - {fileID: 11400000, guid: a07dc3525c940484585c3a76c4b03557, type: 2}
-  - {fileID: 11400000, guid: 53b0ab5ac5efad54ead1fb967f4cacf8, type: 2}
+  regionConfigs:
+  - {fileID: 11400000, guid: 5a80ee647d72b17439e45744dd5842c3, type: 2}
+  - {fileID: 11400000, guid: 50748d99ca653d240968ee7010199d3d, type: 2}
+  selectedRegion: 0
   selectedPhase: 1
 --- !u!1 &571364647
 GameObject:
@@ -2489,6 +2489,9 @@ MonoBehaviour:
   - prefab: {fileID: 79734043340449526, guid: e8f8a7fe3a1105048b3d0c71d84d34bb, type: 3}
     initialSize: 3
     maxSize: 6
+  - prefab: {fileID: 79734043340449526, guid: b4d9596cbfd5faa45806ba618d2bdf1f, type: 3}
+    initialSize: 3
+    maxSize: 3
 --- !u!1 &601126941
 GameObject:
   m_ObjectHideFlags: 0
