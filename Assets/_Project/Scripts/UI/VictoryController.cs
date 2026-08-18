@@ -62,6 +62,13 @@ public class VictoryController : MonoBehaviour
     private TMP_Text bossMemoryText;
 
     [SerializeField]
+    private Image bossMemoryImage;
+
+    [SerializeField]
+    private Sprite[] fireMemoryImages =
+    new Sprite[3];
+
+    [SerializeField]
     private Button bossMemoryContinueButton;
 
     [SerializeField]
@@ -212,6 +219,9 @@ public class VictoryController : MonoBehaviour
         bossMemoryText.text =
             FireMemoryPages[currentMemoryPage];
 
+        bossMemoryImage.sprite =
+            fireMemoryImages[currentMemoryPage];
+
         bool isLastPage =
             currentMemoryPage ==
             FireMemoryPages.Length - 1;
@@ -333,11 +343,33 @@ public class VictoryController : MonoBehaviour
         }
 
         if (!ValidateReference(
-                bossMemoryText,
-                "Boss Memory Text"
-            ))
+        bossMemoryImage,
+        "Boss Memory Image"
+    ))
         {
-            return false;
+    return false;
+        }
+
+        if (fireMemoryImages == null ||
+            fireMemoryImages.Length != FireMemoryPages.Length)
+        {
+        Debug.LogError(
+            "[VictoryController] Devem existir exatamente " +
+            "três imagens para a Memória de Fogo."
+    );
+
+    return false;
+        }
+
+        for (int i = 0; i < fireMemoryImages.Length; i++)
+        {
+         if (!ValidateReference(
+            fireMemoryImages[i],
+            $"Fire Memory Image {i + 1}"
+        ))
+    {
+        return false;
+    }
         }
 
         if (!ValidateReference(
