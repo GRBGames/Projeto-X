@@ -73,6 +73,7 @@ public class MainMenuController : MonoBehaviour
 
     public void StartNewGame()
     {
+        GameProgress.ResetProgress();
         LoadSceneIfAvailable(StorySceneName);
     }
 

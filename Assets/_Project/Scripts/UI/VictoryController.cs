@@ -49,6 +49,9 @@ public class VictoryController : MonoBehaviour
     private Button stageReturnToWorldMapButton;
 
     [SerializeField]
+    private TMP_Text stageResultText;
+
+    [SerializeField]
     private Button stageReturnToMenuButton;
 
     [Header("Memória do Vazio")]
@@ -129,6 +132,9 @@ public class VictoryController : MonoBehaviour
         {
             return;
         }
+
+        stageResultText.text =
+            $"FASE {completedPhaseNumber} CONCLUÍDA";
 
         ShowVictoryPanel(
             stageVictoryPanel,
