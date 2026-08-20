@@ -5552,19 +5552,19 @@ MonoBehaviour:
   phaseController: {fileID: 546784220}
   encounterController: {fileID: 1628928757}
   victoryPanel: {fileID: 1300314162}
+  bossRewardText: {fileID: 815091673}
+  bossRewardImage: {fileID: 701989525}
   returnToWorldMapButton: {fileID: 1928744333}
   returnToMenuButton: {fileID: 1200211141}
   stageVictoryPanel: {fileID: 1034074330}
   stageReturnToWorldMapButton: {fileID: 388108387}
   stageResultText: {fileID: 1355528214}
   stageReturnToMenuButton: {fileID: 492307475}
+  narrativeConfigs:
+  - {fileID: 11400000, guid: 166ca2ffa4708624aadad886bace7bd2, type: 2}
   bossMemoryPanel: {fileID: 858974006}
   bossMemoryText: {fileID: 242803243}
   bossMemoryImage: {fileID: 1241022390}
-  fireMemoryImages:
-  - {fileID: 21300000, guid: 65acd7f5862d7e34088c06bb463e7564, type: 3}
-  - {fileID: 21300000, guid: c8cc1f37db565704da4733dc5069eea2, type: 3}
-  - {fileID: 21300000, guid: ced044de4e4910a428a9f9e96982b718, type: 3}
   bossMemoryContinueButton: {fileID: 2101511394}
   bossMemoryContinueButtonText: {fileID: 829545927}
 --- !u!1 &1355528211

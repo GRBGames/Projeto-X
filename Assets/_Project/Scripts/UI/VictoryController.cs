@@ -8,22 +8,6 @@ public class VictoryController : MonoBehaviour
     private const string MainMenuSceneName = "MainMenu";
     private const string WorldMapSceneName = "WorldMap";
 
-    private static readonly string[] FireMemoryPages =
-    {
-        "<b>LUMI</b>\n\n" +
-        "A Fagulha carrega mais do que poder, Lyren. " +
-        "Ela também guarda uma memória.",
-
-        "<b>LUMI</b>\n\n" +
-        "Antes de ser chamado de Vazio, ele foi um mago " +
-        "da Ordem Arcana... um dos nossos.",
-
-        "<b>LYREN</b>\n\n" +
-        "Então ele conhece os segredos da Ordem. " +
-        "Mas o que fez um de seus magos se voltar contra " +
-        "tudo o que jurou proteger?"
-    };
-
     [Header("Referências")]
     [SerializeField]
     private PhaseController phaseController;
@@ -34,6 +18,12 @@ public class VictoryController : MonoBehaviour
     [Header("Vitória do chefe")]
     [SerializeField]
     private GameObject victoryPanel;
+
+    [SerializeField]
+    private TMP_Text bossRewardText;
+
+    [SerializeField]
+    private Image bossRewardImage;
 
     [SerializeField]
     private Button returnToWorldMapButton;
@@ -54,6 +44,11 @@ public class VictoryController : MonoBehaviour
     [SerializeField]
     private Button stageReturnToMenuButton;
 
+    [Header("Narrativas por região")]
+    [SerializeField]
+    private BossNarrativeConfig[] narrativeConfigs =
+    new BossNarrativeConfig[1];
+
     [Header("Memória do Vazio")]
     [SerializeField]
     private GameObject bossMemoryPanel;
@@ -62,11 +57,7 @@ public class VictoryController : MonoBehaviour
     private TMP_Text bossMemoryText;
 
     [SerializeField]
-    private Image bossMemoryImage;
-
-    [SerializeField]
-    private Sprite[] fireMemoryImages =
-    new Sprite[3];
+    private Image bossMemoryImage;  
 
     [SerializeField]
     private Button bossMemoryContinueButton;
@@ -77,6 +68,7 @@ public class VictoryController : MonoBehaviour
     private bool initialized;
     private bool victoryShown;
     private int currentMemoryPage;
+    private BossNarrativeConfig activeNarrativeConfig;  
 
     private void Awake()
     {
@@ -150,12 +142,57 @@ public class VictoryController : MonoBehaviour
     }
 
     private void ShowBossVictory()
-    {
-        ShowVictoryPanel(
-            victoryPanel,
-            "Chefe derrotado."
+{
+    activeNarrativeConfig =
+        FindNarrativeConfig(
+            phaseController.CurrentRegion
         );
+
+    if (activeNarrativeConfig == null)
+    {
+        Debug.LogError(
+            "[VictoryController] Não existe narrativa " +
+            $"configurada para {phaseController.CurrentRegion}."
+        );
+
+        return;
     }
+
+    bossRewardText.text =
+        activeNarrativeConfig.RewardMessage;
+
+    bossRewardImage.sprite =
+        activeNarrativeConfig.RewardIllustration;
+
+    ShowVictoryPanel(
+        victoryPanel,
+        $"Chefe de {phaseController.CurrentRegion} derrotado."
+    );
+}
+
+    private BossNarrativeConfig FindNarrativeConfig(
+    StageRegion region
+)
+{
+    if (narrativeConfigs == null)
+    {
+        return null;
+    }
+
+    for (int i = 0; i < narrativeConfigs.Length; i++)
+    {
+        BossNarrativeConfig narrativeConfig =
+            narrativeConfigs[i];
+
+        if (narrativeConfig != null &&
+            narrativeConfig.Region == region)
+        {
+            return narrativeConfig;
+        }
+    }
+
+    return null;
+}
 
     private void ShowVictoryPanel(
         GameObject panel,
@@ -184,53 +221,89 @@ public class VictoryController : MonoBehaviour
     }
 
     private void ShowBossMemory()
+{
+    if (!victoryShown)
     {
-        if (!victoryShown)
-        {
-            return;
-        }
-
-        victoryPanel.SetActive(false);
-        bossMemoryPanel.SetActive(true);
-
-        currentMemoryPage = 0;
-        DisplayCurrentMemoryPage();
-
-        Debug.Log(
-            "[VictoryController] Memória do Vazio iniciada."
-        );
+        return;
     }
+
+    if (activeNarrativeConfig == null)
+    {
+        Debug.LogError(
+            "[VictoryController] A narrativa ativa não foi definida."
+        );
+
+        return;
+    }
+
+    victoryPanel.SetActive(false);
+    bossMemoryPanel.SetActive(true);
+
+    currentMemoryPage = 0;
+    DisplayCurrentMemoryPage();
+
+    Debug.Log(
+        $"[VictoryController] Memória de " +
+        $"{activeNarrativeConfig.Region} iniciada."
+    );
+}
 
     private void AdvanceBossMemory()
+{
+    if (activeNarrativeConfig == null)
     {
-        if (currentMemoryPage <
-            FireMemoryPages.Length - 1)
-        {
-            currentMemoryPage++;
-            DisplayCurrentMemoryPage();
-            return;
-        }
-
-        ReturnToWorldMap();
+        return;
     }
+
+    if (currentMemoryPage <
+        activeNarrativeConfig.MemoryPageCount - 1)
+    {
+        currentMemoryPage++;
+        DisplayCurrentMemoryPage();
+        return;
+    }
+
+    ReturnToWorldMap();
+}
 
     private void DisplayCurrentMemoryPage()
+{
+    if (activeNarrativeConfig == null)
     {
-        bossMemoryText.text =
-            FireMemoryPages[currentMemoryPage];
-
-        bossMemoryImage.sprite =
-            fireMemoryImages[currentMemoryPage];
-
-        bool isLastPage =
-            currentMemoryPage ==
-            FireMemoryPages.Length - 1;
-
-        bossMemoryContinueButtonText.text =
-            isLastPage
-                ? "VOLTAR AO MAPA"
-                : "CONTINUAR";
+        return;
     }
+
+    bool pageFound =
+        activeNarrativeConfig.TryGetMemoryPage(
+            currentMemoryPage,
+            out BossMemoryPage memoryPage
+        );
+
+    if (!pageFound)
+    {
+        Debug.LogError(
+            "[VictoryController] A página de memória " +
+            $"{currentMemoryPage} é inválida."
+        );
+
+        return;
+    }
+
+    bossMemoryText.text =
+        memoryPage.FormattedDialogue;
+
+    bossMemoryImage.sprite =
+        memoryPage.Illustration;
+
+    bool isLastPage =
+        currentMemoryPage ==
+        activeNarrativeConfig.MemoryPageCount - 1;
+
+    bossMemoryContinueButtonText.text =
+        isLastPage
+            ? "VOLTAR AO MAPA"
+            : "CONTINUAR";
+}
 
     private void ConfigureReturnButtons()
     {
@@ -290,6 +363,22 @@ public class VictoryController : MonoBehaviour
                 victoryPanel,
                 "Victory Panel"
             ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
+        bossRewardText,
+        "Boss Reward Text"
+    ))
+        {
+            return false;
+        }
+
+        if (!ValidateReference(
+        bossRewardImage,
+        "Boss Reward Image"
+    ))
         {
             return false;
         }
@@ -358,27 +447,61 @@ public class VictoryController : MonoBehaviour
     return false;
         }
 
-        if (fireMemoryImages == null ||
-            fireMemoryImages.Length != FireMemoryPages.Length)
-        {
-        Debug.LogError(
-            "[VictoryController] Devem existir exatamente " +
-            "três imagens para a Memória de Fogo."
+        if (narrativeConfigs == null ||
+    narrativeConfigs.Length == 0)
+{
+    Debug.LogError(
+        "[VictoryController] Nenhuma narrativa regional " +
+        "foi configurada."
     );
 
     return false;
-        }
+}
 
-        for (int i = 0; i < fireMemoryImages.Length; i++)
-        {
-         if (!ValidateReference(
-            fireMemoryImages[i],
-            $"Fire Memory Image {i + 1}"
+for (int i = 0; i < narrativeConfigs.Length; i++)
+{
+    BossNarrativeConfig narrativeConfig =
+        narrativeConfigs[i];
+
+    if (!ValidateReference(
+            narrativeConfig,
+            $"Narrative Config {i + 1}"
         ))
     {
         return false;
     }
+
+    if (!narrativeConfig.IsValid())
+    {
+        Debug.LogError(
+            "[VictoryController] A narrativa da região " +
+            $"{narrativeConfig.Region} está incompleta."
+        );
+
+        return false;
+    }
+
+    for (int j = i + 1;
+         j < narrativeConfigs.Length;
+         j++)
+    {
+        BossNarrativeConfig otherConfig =
+            narrativeConfigs[j];
+
+        if (otherConfig != null &&
+            otherConfig.Region ==
+            narrativeConfig.Region)
+        {
+            Debug.LogError(
+                "[VictoryController] A região " +
+                $"{narrativeConfig.Region} possui " +
+                "mais de uma narrativa configurada."
+            );
+
+            return false;
         }
+    }
+}
 
         if (!ValidateReference(
                 bossMemoryContinueButton,

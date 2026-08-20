@@ -23,6 +23,9 @@ public class PhaseController : MonoBehaviour
     public event Action<int> PhaseFinished;
     public event Action BossRequested;
 
+    public StageRegion CurrentRegion { get; private set; } =
+    StageRegion.Fire;
+
     public int CurrentPhaseNumber { get; private set; }
     public bool IsBlocked { get; private set; }
 
@@ -135,6 +138,7 @@ public class PhaseController : MonoBehaviour
             return false;
         }
 
+        CurrentRegion = region;
         CurrentPhaseNumber = phaseNumber;
 
         if (!enemySpawner.StartPhase(selectedConfig))
