@@ -44,6 +44,11 @@ public class VictoryController : MonoBehaviour
     [SerializeField]
     private Button stageReturnToMenuButton;
 
+    [Header("Temas visuais por região")]
+    [SerializeField]
+    private RegionVisualConfig[] visualConfigs =
+    new RegionVisualConfig[5];
+
     [Header("Narrativas por região")]
     [SerializeField]
     private BossNarrativeConfig[] narrativeConfigs =
@@ -69,6 +74,7 @@ public class VictoryController : MonoBehaviour
     private bool victoryShown;
     private int currentMemoryPage;
     private BossNarrativeConfig activeNarrativeConfig;  
+    private RegionVisualConfig activeVisualConfig;
 
     private void Awake()
     {
@@ -194,6 +200,106 @@ public class VictoryController : MonoBehaviour
     return null;
 }
 
+    private RegionVisualConfig FindVisualConfig(
+    StageRegion region
+)
+{
+    if (visualConfigs == null)
+    {
+        return null;
+    }
+
+    for (int i = 0; i < visualConfigs.Length; i++)
+    {
+        RegionVisualConfig visualConfig =
+            visualConfigs[i];
+
+        if (visualConfig != null &&
+            visualConfig.Region == region)
+        {
+            return visualConfig;
+        }
+    }
+
+    return null;
+}
+
+    private bool ApplyVisualTheme(GameObject panel)
+{
+    activeVisualConfig =
+        FindVisualConfig(
+            phaseController.CurrentRegion
+        );
+
+    if (activeVisualConfig == null)
+    {
+        Debug.LogError(
+            "[VictoryController] Não existe tema visual " +
+            $"configurado para {phaseController.CurrentRegion}."
+        );
+
+        return false;
+    }
+
+    Image[] panelImages =
+        panel.GetComponentsInChildren<Image>(true);
+
+    for (int i = 0; i < panelImages.Length; i++)
+    {
+        Image panelImage = panelImages[i];
+
+        if (panelImage.name.Contains("Divider"))
+        {
+            panelImage.color =
+                activeVisualConfig.AccentColor;
+        }
+    }
+
+    TMP_Text[] panelTexts =
+        panel.GetComponentsInChildren<TMP_Text>(true);
+
+    for (int i = 0; i < panelTexts.Length; i++)
+    {
+        TMP_Text panelText = panelTexts[i];
+
+        bool usesAccentColor =
+            panelText.name.EndsWith("Title") ||
+            panelText.name == "RewardText";
+
+        if (usesAccentColor)
+        {
+            panelText.color =
+                activeVisualConfig.AccentColor;
+        }
+    }
+
+    Button[] panelButtons =
+    panel.GetComponentsInChildren<Button>(true);
+
+for (int i = 0; i < panelButtons.Length; i++)
+{
+    Graphic targetGraphic =
+        panelButtons[i].targetGraphic;
+
+    if (targetGraphic != null)
+    {
+        targetGraphic.color = Color.white;
+    }
+
+    TMP_Text buttonLabel =
+        panelButtons[i]
+            .GetComponentInChildren<TMP_Text>(true);
+
+    if (buttonLabel != null)
+    {
+        buttonLabel.color =
+            activeVisualConfig.ButtonColor;
+    }
+}
+
+    return true;
+}
+
     private void ShowVictoryPanel(
         GameObject panel,
         string victoryMessage
@@ -208,6 +314,11 @@ public class VictoryController : MonoBehaviour
             PlayerBarrier.Instance.IsDepleted)
         {
             return;
+        }
+
+        if (!ApplyVisualTheme(panel))
+        {
+        return;
         }
 
         victoryShown = true;
@@ -343,6 +454,53 @@ public class VictoryController : MonoBehaviour
 
     private bool ValidateSetup()
     {
+        if (visualConfigs == null ||
+    visualConfigs.Length != 5)
+{
+    Debug.LogError(
+        "[VictoryController] Devem existir exatamente " +
+        "cinco temas visuais regionais."
+    );
+
+    return false;
+}
+
+for (int i = 0; i < visualConfigs.Length; i++)
+{
+    RegionVisualConfig visualConfig =
+        visualConfigs[i];
+
+    if (visualConfig == null)
+    {
+        Debug.LogError(
+            "[VictoryController] O tema visual do elemento " +
+            $"{i} não foi atribuído."
+        );
+
+        return false;
+    }
+
+    for (int j = i + 1;
+         j < visualConfigs.Length;
+         j++)
+    {
+        RegionVisualConfig otherConfig =
+            visualConfigs[j];
+
+        if (otherConfig != null &&
+            otherConfig.Region == visualConfig.Region)
+        {
+            Debug.LogError(
+                "[VictoryController] A região " +
+                $"{visualConfig.Region} possui mais de " +
+                "um tema visual."
+            );
+
+            return false;
+        }
+    }
+}
+
         if (!ValidateReference(
                 phaseController,
                 "Phase Controller"
