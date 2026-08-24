@@ -2492,6 +2492,15 @@ MonoBehaviour:
   - prefab: {fileID: 79734043340449526, guid: b4d9596cbfd5faa45806ba618d2bdf1f, type: 3}
     initialSize: 3
     maxSize: 3
+  - prefab: {fileID: 79734043340449526, guid: e21cab2161d686e40a551f36d6cdfa70, type: 3}
+    initialSize: 6
+    maxSize: 10
+  - prefab: {fileID: 79734043340449526, guid: 7b287860244fda24f80a167c6b7c923a, type: 3}
+    initialSize: 4
+    maxSize: 8
+  - prefab: {fileID: 79734043340449526, guid: cfc95ce1578e27445a38a76b8e3705c8, type: 3}
+    initialSize: 3
+    maxSize: 6
 --- !u!1 &601126941
 GameObject:
   m_ObjectHideFlags: 0
@@ -5566,7 +5575,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5added7a1d4916d4ca030d2f3d6839a2, type: 2}
   - {fileID: 11400000, guid: 8afa16eec7b17b842b503ca09344ab56, type: 2}
   - {fileID: 11400000, guid: 115204876c7ad3c4180d1bdcf026130a, type: 2}
-  regionalButtonSprite: {fileID: 738234692156194615, guid: 46b6665366b55594eb7a1b7c1cc3fcd7, type: 3}
   narrativeConfigs:
   - {fileID: 11400000, guid: 166ca2ffa4708624aadad886bace7bd2, type: 2}
   bossMemoryPanel: {fileID: 858974006}

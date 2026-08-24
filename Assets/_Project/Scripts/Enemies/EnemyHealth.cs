@@ -2,13 +2,29 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
+    [Header("Vida")]
     [SerializeField]
     [Min(1)]
     private int maxHealth = 3;
 
+    [Header("Configuração elemental")]
+    [SerializeField]
+    private DamageElement enemyElement = DamageElement.Neutral;
+
+    [SerializeField]
+    private DamageElement weaknessElement = DamageElement.Neutral;
+
+    [SerializeField]
+    [Min(1)]
+    private int weaknessMultiplier = 2;
+
     public int CurrentHealth { get; private set; }
 
     public bool IsAlive => CurrentHealth > 0;
+
+    public DamageElement EnemyElement => enemyElement;
+
+    public DamageElement WeaknessElement => weaknessElement;
 
     private void OnEnable()
     {
@@ -32,16 +48,32 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             return;
         }
 
+        bool weaknessActivated =
+            weaknessElement != DamageElement.Neutral &&
+            damageElement == weaknessElement;
+
+        int finalDamage = weaknessActivated
+            ? damage * weaknessMultiplier
+            : damage;
+
         CurrentHealth = Mathf.Max(
-            CurrentHealth - damage,
+            CurrentHealth - finalDamage,
             0
         );
 
         Debug.Log(
-            $"{name} recebeu {damage} de dano " +
+            $"{name} recebeu {finalDamage} de dano " +
             $"do elemento {damageElement}. " +
             $"Vida: {CurrentHealth}/{maxHealth}"
         );
+
+        if (weaknessActivated)
+        {
+            Debug.Log(
+                $"{name} sofreu dano de fraqueza " +
+                $"x{weaknessMultiplier}!"
+            );
+        }
 
         if (!IsAlive)
         {

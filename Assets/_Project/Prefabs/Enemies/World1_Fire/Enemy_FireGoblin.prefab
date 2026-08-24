@@ -137,7 +137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5538d8cd6c0a4140a81a321e9958311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 6
+  maxHealth: 5
+  enemyElement: 1
+  weaknessElement: 4
+  weaknessMultiplier: 2
 --- !u!61 &4574979364772423659
 BoxCollider2D:
   m_ObjectHideFlags: 0

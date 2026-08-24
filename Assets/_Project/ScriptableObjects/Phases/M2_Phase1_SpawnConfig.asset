@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: M2_Phase1_SpawnConfig
   m_EditorClassIdentifier: Assembly-CSharp::PhaseSpawnConfig
   enemyOptions:
-  - prefab: {fileID: 79734043340449526, guid: b4d9596cbfd5faa45806ba618d2bdf1f, type: 3}
-    weight: 1
-  totalEnemies: 3
+  - prefab: {fileID: 79734043340449526, guid: e21cab2161d686e40a551f36d6cdfa70, type: 3}
+    weight: 70
+  - prefab: {fileID: 79734043340449526, guid: 7b287860244fda24f80a167c6b7c923a, type: 3}
+    weight: 30
+  - prefab: {fileID: 79734043340449526, guid: cfc95ce1578e27445a38a76b8e3705c8, type: 3}
+    weight: 0
+  totalEnemies: 10
   startDelay: 1
   minSpawnInterval: 2
   maxSpawnInterval: 3
-  maxActiveEnemies: 2
+  maxActiveEnemies: 4
