@@ -60,10 +60,16 @@ public class BossNarrativeConfig : ScriptableObject
     private BossMemoryPage[] memoryPages =
         new BossMemoryPage[3];
 
+    [Header("Destino após a narrativa")]
+    [SerializeField]
+    private string destinationSceneName = "WorldMap";
+
     public StageRegion Region => region;
     public string RewardMessage => rewardMessage;
     public Sprite RewardIllustration => rewardIllustration;
     public int MemoryPageCount => memoryPages.Length;
+    public string DestinationSceneName =>
+    destinationSceneName;
 
     public bool TryGetMemoryPage(
         int pageIndex,
@@ -88,9 +94,10 @@ public class BossNarrativeConfig : ScriptableObject
     public bool IsValid()
     {
         if (string.IsNullOrWhiteSpace(rewardMessage) ||
-            rewardIllustration == null ||
-            memoryPages == null ||
-            memoryPages.Length == 0)
+    rewardIllustration == null ||
+    memoryPages == null ||
+    memoryPages.Length == 0 ||
+    string.IsNullOrWhiteSpace(destinationSceneName))
         {
             return false;
         }

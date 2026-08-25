@@ -374,7 +374,9 @@ for (int i = 0; i < panelButtons.Length; i++)
         return;
     }
 
-    ReturnToWorldMap();
+    LoadSceneIfAvailable(
+    activeNarrativeConfig.DestinationSceneName
+);
 }
 
     private void DisplayCurrentMemoryPage()
