@@ -108,10 +108,9 @@ public class WorldMapProgressBridge : MonoBehaviour
 
         CompleteSelectedStage();
 
-        if (StageSelectionData.Region == StageRegion.Fire)
-        {
-            GameProgress.UnlockFire();
-        }
+        GameProgress.UnlockAscension(
+            StageSelectionData.Region
+        );
 
         Debug.Log(
             "[WorldMapProgressBridge] Fase de chefe concluída. " +

@@ -14,6 +14,15 @@ public static class GameProgress
     private const string FireUnlockedKey =
         "FireAscensionUnlocked";
 
+    private const string IceUnlockedKey =
+        "IceAscensionUnlocked";
+
+    private const string PlantUnlockedKey =
+        "PlantAscensionUnlocked";
+
+    private const string StoneUnlockedKey =
+        "StoneAscensionUnlocked";
+
     public static int HighestUnlockedStage
     {
         get
@@ -57,6 +66,57 @@ public static class GameProgress
             ) == 1;
         }
     }
+
+    public static bool IsIceUnlocked
+{
+        get
+        {
+            return PlayerPrefs.GetInt(
+                IceUnlockedKey,
+                0
+            ) == 1;
+        }
+}
+
+    public static bool IsPlantUnlocked
+{
+        get
+        {
+            return PlayerPrefs.GetInt(
+                PlantUnlockedKey,
+                0
+            ) == 1;
+        }
+}
+
+    public static bool IsStoneUnlocked
+{
+        get
+        {
+            return PlayerPrefs.GetInt(
+                StoneUnlockedKey,
+                0
+            ) == 1;
+        }
+}
+
+    public static bool IsAscensionUnlocked(
+    StageRegion region
+)
+{
+    if (!TryGetAscensionKey(
+            region,
+            out string ascensionKey
+        ))
+    {
+        return false;
+    }
+
+    return PlayerPrefs.GetInt(
+        ascensionKey,
+        0
+    ) == 1;
+}
 
     public static bool CompleteStage(
         int completedStageIndex,
@@ -116,20 +176,70 @@ public static class GameProgress
         return true;
     }
 
-    public static void UnlockFire()
+    public static void UnlockAscension(
+    StageRegion region
+)
+{
+    if (!TryGetAscensionKey(
+            region,
+            out string ascensionKey
+        ))
     {
-        if (IsFireUnlocked)
-        {
-            return;
-        }
-
-        PlayerPrefs.SetInt(FireUnlockedKey, 1);
-        PlayerPrefs.Save();
-
         Debug.Log(
-            "[GameProgress] Ascensão de Fogo desbloqueada e salva."
+            $"[GameProgress] A região {region} " +
+            "não possui uma Ascensão para desbloquear."
         );
+
+        return;
     }
+
+        if (IsAscensionUnlocked(region))
+    {
+        return;
+    }
+
+    PlayerPrefs.SetInt(ascensionKey, 1);
+    PlayerPrefs.Save();
+
+    Debug.Log(
+        $"[GameProgress] Ascensão de {region} " +
+        "desbloqueada e salva."
+    );
+}
+
+public static void UnlockFire()
+{
+    UnlockAscension(StageRegion.Fire);
+}
+
+private static bool TryGetAscensionKey(
+    StageRegion region,
+    out string ascensionKey
+)
+{
+    switch (region)
+    {
+        case StageRegion.Fire:
+            ascensionKey = FireUnlockedKey;
+            return true;
+
+        case StageRegion.Ice:
+            ascensionKey = IceUnlockedKey;
+            return true;
+
+        case StageRegion.Plant:
+            ascensionKey = PlantUnlockedKey;
+            return true;
+
+        case StageRegion.Stone:
+            ascensionKey = StoneUnlockedKey;
+            return true;
+
+        default:
+            ascensionKey = null;
+            return false;
+    }
+}
 
     public static void ResetProgress()
     {
@@ -137,6 +247,9 @@ public static class GameProgress
         PlayerPrefs.DeleteKey(HasProgressKey);
         PlayerPrefs.DeleteKey(CampaignCompletedKey);
         PlayerPrefs.DeleteKey(FireUnlockedKey);
+        PlayerPrefs.DeleteKey(IceUnlockedKey);
+        PlayerPrefs.DeleteKey(PlantUnlockedKey);
+        PlayerPrefs.DeleteKey(StoneUnlockedKey);
         PlayerPrefs.Save();
 
         Debug.Log("Progresso apagado.");

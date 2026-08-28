@@ -63,6 +63,9 @@ public class BossNarrativeConfig : ScriptableObject
     [Header("Destino após a narrativa")]
     [SerializeField]
     private string destinationSceneName = "WorldMap";
+    
+    [SerializeField]
+    private string destinationButtonText = "VOLTAR AO MAPA";
 
     public StageRegion Region => region;
     public string RewardMessage => rewardMessage;
@@ -70,6 +73,8 @@ public class BossNarrativeConfig : ScriptableObject
     public int MemoryPageCount => memoryPages.Length;
     public string DestinationSceneName =>
     destinationSceneName;
+    public string DestinationButtonText =>
+    destinationButtonText;
 
     public bool TryGetMemoryPage(
         int pageIndex,
@@ -97,7 +102,8 @@ public class BossNarrativeConfig : ScriptableObject
     rewardIllustration == null ||
     memoryPages == null ||
     memoryPages.Length == 0 ||
-    string.IsNullOrWhiteSpace(destinationSceneName))
+    string.IsNullOrWhiteSpace(destinationSceneName) ||
+    string.IsNullOrWhiteSpace(destinationButtonText))   
         {
             return false;
         }

@@ -413,9 +413,9 @@ for (int i = 0; i < panelButtons.Length; i++)
         activeNarrativeConfig.MemoryPageCount - 1;
 
     bossMemoryContinueButtonText.text =
-        isLastPage
-            ? "VOLTAR AO MAPA"
-            : "CONTINUAR";
+    isLastPage
+        ? activeNarrativeConfig.DestinationButtonText
+        : "CONTINUAR";
 }
 
     private void ConfigureReturnButtons()
