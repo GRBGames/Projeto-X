@@ -5578,6 +5578,7 @@ MonoBehaviour:
   narrativeConfigs:
   - {fileID: 11400000, guid: 166ca2ffa4708624aadad886bace7bd2, type: 2}
   - {fileID: 11400000, guid: d065f89116ceb7944b6e3c4d0185ddd7, type: 2}
+  - {fileID: 11400000, guid: cea217221e510764bb8c32791942a465, type: 2}
   bossMemoryPanel: {fileID: 858974006}
   bossMemoryText: {fileID: 242803243}
   bossMemoryImage: {fileID: 1241022390}

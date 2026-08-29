@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4e47dc19d40ef43aa102a4ee65f11d, type: 3}
+  m_Name: Plant_BossNarrativeConfig
+  m_EditorClassIdentifier: Assembly-CSharp::BossNarrativeConfig
+  region: 2
+  rewardMessage: FAGULHA DE PLANTA RECEBIDA
+  rewardIllustration: {fileID: 21300000, guid: 3470f0ac284110247bd05bfed15e17a7, type: 3}
+  memoryPages:
+  - speakerName: LUMI
+    dialogue: "A lembran\xE7a continua, Lyren. Depois de deixar a Ordem, ele encontrou
+      um livro proibido cheio de magia perigosa."
+    illustration: {fileID: 21300000, guid: 76db96bb53b9f3e4ea3dd3fc8df7dbd8, type: 3}
+  - speakerName: LUMI
+    dialogue: O livro ensinava um ritual para juntar os quatro elementos. Mesmo sabendo
+      do perigo, ele decidiu tentar.
+    illustration: {fileID: 21300000, guid: 8cca1b413cb702f4d9cc87834832a483, type: 3}
+  - speakerName: LYREN
+    dialogue: "Ent\xE3o foi esse ritual que o transformou no Vazio... Ele buscava
+      mais poder e acabou perdendo quem era."
+    illustration: {fileID: 21300000, guid: 664803d87a436a64ea17c8696c98934f, type: 3}
+  destinationSceneName: WorldMap
+  destinationButtonText: VOLTAR AO MAPA
