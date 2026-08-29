@@ -5580,6 +5580,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d065f89116ceb7944b6e3c4d0185ddd7, type: 2}
   - {fileID: 11400000, guid: cea217221e510764bb8c32791942a465, type: 2}
   - {fileID: 11400000, guid: f1f9be45887b67d4688a186067c65904, type: 2}
+  - {fileID: 11400000, guid: d7ac040247dcc9647b00ebf286bd7db2, type: 2}
   bossMemoryPanel: {fileID: 858974006}
   bossMemoryText: {fileID: 242803243}
   bossMemoryImage: {fileID: 1241022390}
