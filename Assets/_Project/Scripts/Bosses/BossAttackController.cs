@@ -2,7 +2,12 @@ using System.Collections;
 using UnityEngine;
 
 public class BossAttackController : MonoBehaviour
-{
+{   
+    [Header("Região do chefe")]
+    [SerializeField]
+    private StageRegion attackRegion =
+        StageRegion.Fire;
+
     [Header("Referências")]
     [SerializeField]
     private BossEncounterController encounterController;
@@ -69,7 +74,13 @@ public class BossAttackController : MonoBehaviour
     }
 
     private void StartAttacking()
-    {
+    {   
+        if (encounterController.ActiveRegion !=
+            attackRegion)
+        {
+            return;
+        }
+
         StopAttackRoutines();
 
         regularAttackRoutine = StartCoroutine(

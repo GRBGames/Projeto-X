@@ -18,14 +18,7 @@ public class BossHealthHUD : MonoBehaviour
     [SerializeField]
     private BossEncounterController encounterController;
 
-    [SerializeField]
-    private BossHealth bossHealth;
-
-    [Header("Identificação")]
-    [SerializeField]
-    private string bossDisplayName =
-        "FÊNIX DAS CHAMAS ANCESTRAIS";
-
+    private BossHealth activeBossHealth;
     private PlayerBarrier playerBarrier;
     private bool initialized;
 
@@ -50,41 +43,59 @@ public class BossHealthHUD : MonoBehaviour
         healthSlider.wholeNumbers = true;
         healthSlider.interactable = false;
 
-        bossNameText.text = bossDisplayName;
-
         encounterController.BossBattleStarted +=
             ShowBossHealth;
 
         encounterController.BossBattleCompleted +=
             HandleBossDefeated;
 
-        bossHealth.HealthChanged +=
-            UpdateHealth;
-
         playerBarrier.BarrierBroken +=
             HideBossHealth;
 
         initialized = true;
-
-        UpdateHealth(
-            bossHealth.CurrentHealth,
-            bossHealth.MaxHealth
-        );
     }
 
     private void ShowBossHealth()
     {
-        bossHealthRoot.SetActive(true);
+        UnsubscribeFromActiveBoss();
+
+        activeBossHealth =
+            encounterController.ActiveBossHealth;
+
+        if (activeBossHealth == null)
+        {
+            Debug.LogError(
+                "[BossHealthHUD] " +
+                "O chefe ativo não possui BossHealth."
+            );
+
+            bossHealthRoot.SetActive(false);
+            return;
+        }
+
+        activeBossHealth.HealthChanged +=
+            UpdateHealth;
+
+        bossNameText.text =
+            encounterController.ActiveBossDisplayName;
 
         UpdateHealth(
-            bossHealth.CurrentHealth,
-            bossHealth.MaxHealth
+            activeBossHealth.CurrentHealth,
+            activeBossHealth.MaxHealth
+        );
+
+        bossHealthRoot.SetActive(true);
+
+        Debug.Log(
+            $"[BossHealthHUD] HUD exibido para " +
+            $"{encounterController.ActiveBossDisplayName}."
         );
     }
 
     private void UpdateHealth(
         int currentHealth,
-        int maxHealth)
+        int maxHealth
+    )
     {
         healthSlider.maxValue = maxHealth;
         healthSlider.value = currentHealth;
@@ -92,10 +103,13 @@ public class BossHealthHUD : MonoBehaviour
 
     private void HandleBossDefeated()
     {
-        UpdateHealth(
-            0,
-            bossHealth.MaxHealth
-        );
+        if (activeBossHealth != null)
+        {
+            UpdateHealth(
+                0,
+                activeBossHealth.MaxHealth
+            );
+        }
 
         HideBossHealth();
     }
@@ -103,6 +117,20 @@ public class BossHealthHUD : MonoBehaviour
     private void HideBossHealth()
     {
         bossHealthRoot.SetActive(false);
+        UnsubscribeFromActiveBoss();
+    }
+
+    private void UnsubscribeFromActiveBoss()
+    {
+        if (activeBossHealth == null)
+        {
+            return;
+        }
+
+        activeBossHealth.HealthChanged -=
+            UpdateHealth;
+
+        activeBossHealth = null;
     }
 
     private bool ValidateSetup()
@@ -147,21 +175,11 @@ public class BossHealthHUD : MonoBehaviour
             return false;
         }
 
-        if (bossHealth == null)
-        {
-            Debug.LogError(
-                "[BossHealthHUD] " +
-                "Boss Health não foi atribuído."
-            );
-
-            return false;
-        }
-
         if (playerBarrier == null)
         {
             Debug.LogError(
                 "[BossHealthHUD] " +
-                "PlayerBarrier não foi encontrado."
+                "Player Barrier não foi encontrado."
             );
 
             return false;
@@ -172,6 +190,8 @@ public class BossHealthHUD : MonoBehaviour
 
     private void OnDestroy()
     {
+        UnsubscribeFromActiveBoss();
+
         if (!initialized)
         {
             return;
@@ -182,9 +202,6 @@ public class BossHealthHUD : MonoBehaviour
 
         encounterController.BossBattleCompleted -=
             HandleBossDefeated;
-
-        bossHealth.HealthChanged -=
-            UpdateHealth;
 
         playerBarrier.BarrierBroken -=
             HideBossHealth;

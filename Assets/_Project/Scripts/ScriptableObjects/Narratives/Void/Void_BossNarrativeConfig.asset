@@ -19,14 +19,14 @@ MonoBehaviour:
   - speakerName: LUMI
     dialogue: "Os quatro cristais voltaram ao Cora\xE7\xE3o Primordial. O Eclipse
       Elemental finalmente chegou ao fim."
-    illustration: {fileID: 0}
+    illustration: {fileID: 21300000, guid: cb9b800caea72f44da60131295e4b3e4, type: 3}
   - speakerName: LUMI
     dialogue: "Sem o poder roubado pelo Vazio, Fogo, Gelo, Planta e Pedra come\xE7aram
       a recuperar seu equil\xEDbrio."
-    illustration: {fileID: 0}
+    illustration: {fileID: 21300000, guid: 113525d3d74c7614fa08604dc076b0a5, type: 3}
   - speakerName: LUMI
     dialogue: "Diante da Ordem Arcana, Lyren foi reconhecido como o Guardi\xE3o dos
       Quatro Elementos."
-    illustration: {fileID: 0}
+    illustration: {fileID: 21300000, guid: 8ada7f60bc461244f8a14a01cb2fa41f, type: 3}
   destinationSceneName: WorldMap
   destinationButtonText: VOLTAR AO MAPA

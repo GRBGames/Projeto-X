@@ -14,7 +14,12 @@ public class PlayerMovement : MonoBehaviour
     private int currentLane;
     private float fixedY;
 
+    private float movementSpeedMultiplier = 1f;
+
     public int CurrentLane => currentLane;
+
+    public float MovementSpeedMultiplier =>
+        movementSpeedMultiplier;
 
     public bool IsCenteredInLane
     {
@@ -34,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         if (LaneManager.Instance == null)
         {
@@ -46,14 +51,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        // Guarda a posição vertical definida no Inspector.
         fixedY = transform.position.y;
 
-        // Descobre em qual lane o Player começa.
         currentLane = LaneManager.Instance
             .GetClosestLane(transform.position);
 
-        // Encaixa o Player no centro da lane inicial.
         Vector3 startingPosition = transform.position;
 
         startingPosition.x = LaneManager.Instance
@@ -65,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = startingPosition;
     }
 
-    void Update()
+    private void Update()
     {
         if (Pointer.current == null)
         {
@@ -77,7 +79,6 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        // Impede que tocar nos botões do HUD movimente Lyren.
         if (EventSystem.current != null &&
             EventSystem.current.IsPointerOverGameObject())
         {
@@ -113,13 +114,15 @@ public class PlayerMovement : MonoBehaviour
             0f
         );
 
+        float currentMoveSpeed =
+            moveSpeed * movementSpeedMultiplier;
+
         transform.position = Vector3.Lerp(
             transform.position,
             targetPosition,
-            moveSpeed * Time.deltaTime
+            currentMoveSpeed * Time.deltaTime
         );
 
-        // Garante que Lyren nunca se mova verticalmente.
         Vector3 correctedPosition = transform.position;
 
         correctedPosition.y = fixedY;
@@ -127,10 +130,9 @@ public class PlayerMovement : MonoBehaviour
 
         transform.position = correctedPosition;
 
-        // Encaixa exatamente no centro ao chegar perto.
         if (Mathf.Abs(
-            transform.position.x - targetPosition.x
-        ) <= laneCenterTolerance)
+                transform.position.x - targetPosition.x
+            ) <= laneCenterTolerance)
         {
             Vector3 snappedPosition = transform.position;
 
@@ -148,5 +150,26 @@ public class PlayerMovement : MonoBehaviour
                 $"Lane Atual: {currentLane}"
             );
         }
+    }
+
+    public void SetMovementSpeedMultiplier(
+        float multiplier
+    )
+    {
+        movementSpeedMultiplier = Mathf.Clamp(
+            multiplier,
+            0.1f,
+            1f
+        );
+    }
+
+    public void ResetMovementSpeedMultiplier()
+    {
+        movementSpeedMultiplier = 1f;
+    }
+
+    private void OnDisable()
+    {
+        ResetMovementSpeedMultiplier();
     }
 }

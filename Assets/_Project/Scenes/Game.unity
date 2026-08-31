@@ -1908,6 +1908,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424562340}
   m_CullTransparentMesh: 1
+--- !u!1 &424854730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 424854731}
+  - component: {fileID: 424854732}
+  m_Layer: 0
+  m_Name: IceBossProjectilePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &424854731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424854730}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 879430507}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &424854732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424854730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fa919425e7d945bcbf8fbe5fb8b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossProjectilePool
+  projectilePrefab: {fileID: 6971221887096120138, guid: 0ffc17dfbfe4fec43a3769ab865a7f51, type: 3}
+  initialSize: 15
 --- !u!1 &481338162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3778,6 +3824,7 @@ Transform:
   - {fileID: 546784219}
   - {fileID: 1628928756}
   - {fileID: 1166252278}
+  - {fileID: 424854731}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &905193400
@@ -3808,7 +3855,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1653050983}
+  - {fileID: 1264727795}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &941075845
@@ -5241,6 +5290,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241022388}
   m_CullTransparentMesh: 1
+--- !u!1 &1264727794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264727795}
+  - component: {fileID: 1264727796}
+  m_Layer: 0
+  m_Name: IceLaneWarning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1264727795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264727794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2, y: 0.15, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 905193401}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1264727796
+SpriteRenderer:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264727794}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 4
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.7490196, g: 0.96862745, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &1270935750
 GameObject:
   m_ObjectHideFlags: 0
@@ -5544,8 +5685,6 @@ MonoBehaviour:
   healthSlider: {fileID: 1132604211}
   bossNameText: {fileID: 2036655550}
   encounterController: {fileID: 1628928757}
-  bossHealth: {fileID: 129406024}
-  bossDisplayName: "F\xCANIX DAS CHAMAS ANCESTRAIS"
 --- !u!114 &1338853937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6063,6 +6202,7 @@ GameObject:
   - component: {fileID: 1628928756}
   - component: {fileID: 1628928757}
   - component: {fileID: 1628928758}
+  - component: {fileID: 1628928759}
   m_Layer: 0
   m_Name: BossEncounterController
   m_TagString: Untagged
@@ -6098,8 +6238,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossEncounterController
   phaseController: {fileID: 546784220}
-  bossObject: {fileID: 129406021}
-  bossHealth: {fileID: 129406024}
+  bossConfigs:
+  - region: 0
+    bossObject: {fileID: 129406021}
+    bossHealth: {fileID: 129406024}
+    displayName: "F\xCANIX DAS CHAMAS ANCESTRAIS"
+  - region: 1
+    bossObject: {fileID: 1721419232}
+    bossHealth: {fileID: 1721419230}
+    displayName: SERPENTE DAS CAVERNAS CONGELADAS
 --- !u!114 &1628928758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6112,6 +6259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a844154956126941a461e16728d9457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAttackController
+  attackRegion: 0
   encounterController: {fileID: 1628928757}
   projectilePool: {fileID: 1166252279}
   firePoint: {fileID: 177343474}
@@ -6121,6 +6269,32 @@ MonoBehaviour:
   specialCooldown: 8
   specialWarningDelay: 1
   specialRecoveryTime: 0.75
+--- !u!114 &1628928759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628928755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930a4269382f6a345bcc3f2ae2686dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IceBossAttackController
+  encounterController: {fileID: 1628928757}
+  projectilePool: {fileID: 424854732}
+  projectilePoint: {fileID: 1721419233}
+  playerMovement: {fileID: 538637674}
+  trailProjectilePrefab: {fileID: 1057267338500689744, guid: 06f8678b856c87d4fab6d6d744170aac, type: 3}
+  frozenLaneHazard: {fileID: 1653050984}
+  iceLaneWarning: {fileID: 1264727794}
+  initialDelay: 1
+  shotInterval: 1.5
+  specialCooldown: 8
+  specialWarningDelay: 0.75
+  warningBlinkInterval: 0.12
+  specialRecoveryTime: 0.75
+  frozenLaneDuration: 4
 --- !u!1 &1629278923
 GameObject:
   m_ObjectHideFlags: 0
@@ -6224,6 +6398,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 129406022}
+  - {fileID: 1721419231}
   m_Father: {fileID: 1813016301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1652902873
@@ -6301,6 +6476,114 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652902873}
   m_CullTransparentMesh: 1
+--- !u!1 &1653050982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1653050983}
+  - component: {fileID: 1653050985}
+  - component: {fileID: 1653050984}
+  m_Layer: 0
+  m_Name: FrozenLaneHazard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1653050983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653050982}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 905193401}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1653050984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653050982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72bf9a97342a50743a655ae1fe98e95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FrozenLaneHazard
+  playerMovement: {fileID: 538637674}
+  laneWidth: 1.2
+  slowMultiplier: 0.6
+--- !u!212 &1653050985
+SpriteRenderer:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653050982}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.5019608, g: 0.9098039, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &1705217956
 GameObject:
   m_ObjectHideFlags: 0
@@ -6484,6 +6767,89 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectilePool
   projectilePrefab: {fileID: 2794246848935358632, guid: ddb74b0c3345485478bb8835dd917d49, type: 3}
   initialSize: 10
+--- !u!1001 &1721419229
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1647128429}
+    m_Modifications:
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 478252143620621454, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+      propertyPath: m_Name
+      value: Boss_IceSerpent
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+--- !u!114 &1721419230 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2161245065127544612, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+  m_PrefabInstance: {fileID: 1721419229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721419232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80c253677ffc0c4cb80a8264fba3fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossHealth
+--- !u!4 &1721419231 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 215941616401246958, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+  m_PrefabInstance: {fileID: 1721419229}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1721419232 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 478252143620621454, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+  m_PrefabInstance: {fileID: 1721419229}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1721419233 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8691384747245874498, guid: c15cf9a954c0ffe4689cd0041c81070f, type: 3}
+  m_PrefabInstance: {fileID: 1721419229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1736816953
 GameObject:
   m_ObjectHideFlags: 0
