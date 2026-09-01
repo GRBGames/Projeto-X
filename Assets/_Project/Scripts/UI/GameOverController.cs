@@ -5,15 +5,32 @@ using UnityEngine.UI;
 public class GameOverController : MonoBehaviour
 {
     [Header("Referências da interface")]
-    [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private Button restartButton;
+    [SerializeField]
+    private GameObject gameOverPanel;
+
+    [SerializeField]
+    private Button restartButton;
+
+    [SerializeField]
+    private Button returnToMapButton;
+
+    [Header("Navegação")]
+    [SerializeField]
+    private string worldMapSceneName = "WorldMap";
 
     private void Awake()
     {
         Time.timeScale = 1f;
 
         gameOverPanel.SetActive(false);
-        restartButton.onClick.AddListener(RestartGame);
+
+        restartButton.onClick.AddListener(
+            RestartGame
+        );
+
+        returnToMapButton.onClick.AddListener(
+            ReturnToWorldMap
+        );
     }
 
     private void Start()
@@ -27,7 +44,8 @@ public class GameOverController : MonoBehaviour
             return;
         }
 
-        PlayerBarrier.Instance.BarrierBroken += ShowGameOver;
+        PlayerBarrier.Instance.BarrierBroken +=
+            ShowGameOver;
     }
 
     public void ShowGameOver()
@@ -45,16 +63,35 @@ public class GameOverController : MonoBehaviour
         );
     }
 
+    private void ReturnToWorldMap()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(
+            worldMapSceneName
+        );
+    }
+
     private void OnDestroy()
     {
         if (PlayerBarrier.Instance != null)
         {
-            PlayerBarrier.Instance.BarrierBroken -= ShowGameOver;
+            PlayerBarrier.Instance.BarrierBroken -=
+                ShowGameOver;
         }
 
         if (restartButton != null)
         {
-            restartButton.onClick.RemoveListener(RestartGame);
+            restartButton.onClick.RemoveListener(
+                RestartGame
+            );
+        }
+
+        if (returnToMapButton != null)
+        {
+            returnToMapButton.onClick.RemoveListener(
+                ReturnToWorldMap
+            );
         }
     }
 }
