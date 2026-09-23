@@ -1,0 +1,1131 @@
+fileFormatVersion: 2
+guid: 964f264c7ede0bb419b7b53b0c9f32ef
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5216661405260979091
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_0
+  - first:
+      213: -908678671478125259
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_1
+  - first:
+      213: 9002932879966169878
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_2
+  - first:
+      213: 8038651848272237064
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_3
+  - first:
+      213: 8971868443372457697
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_4
+  - first:
+      213: 4611035354251998385
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_5
+  - first:
+      213: -6021755400109940254
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_6
+  - first:
+      213: 2035438161727840283
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_7
+  - first:
+      213: 1376607502301489054
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_8
+  - first:
+      213: -3536364215716368691
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_9
+  - first:
+      213: -4824136716756030859
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_10
+  - first:
+      213: 8823765447354745279
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_11
+  - first:
+      213: 8962805974701201094
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_12
+  - first:
+      213: -7168790983547360945
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_13
+  - first:
+      213: 7972744781829103060
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_14
+  - first:
+      213: -7010989587083215286
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_15
+  - first:
+      213: -4188440092779595318
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_16
+  - first:
+      213: 6815858129311818432
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_17
+  - first:
+      213: 1867049817644746156
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_18
+  - first:
+      213: 1315064554480702350
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_19
+  - first:
+      213: -6802051102408932560
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_20
+  - first:
+      213: 8935108638275810089
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_21
+  - first:
+      213: 962243988850119893
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_22
+  - first:
+      213: 5477995580956644528
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_23
+  - first:
+      213: 2209232544668442338
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_24
+  - first:
+      213: 3406891733487754721
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_25
+  - first:
+      213: -993799620939498636
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_26
+  - first:
+      213: 7136085063458272871
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_27
+  - first:
+      213: -1021958542182017606
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_28
+  - first:
+      213: -7169061581824185149
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_29
+  - first:
+      213: 313186093771342287
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_30
+  - first:
+      213: -7513156213923317342
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_31
+  - first:
+      213: 4550707028906951858
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_32
+  - first:
+      213: -1480273577568515230
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_33
+  - first:
+      213: 8504899189714862500
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_34
+  - first:
+      213: 4057171981333349663
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_35
+  - first:
+      213: 13919986429144782
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_36
+  - first:
+      213: -1049439767063037512
+    second: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_37
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 199
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d64ede94712ba97b0800000000000000
+      internalID: -5216661405260979091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_1
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 1810
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53d829b0099b363f0800000000000000
+      internalID: -908678671478125259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_2
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 0
+        width: 492
+        height: 1920
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61b611731c7d0fc70800000000000000
+      internalID: 9002932879966169878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_3
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 1733
+        width: 191
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 802dd41f3470f8f60800000000000000
+      internalID: 8038651848272237064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_4
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 1596
+        width: 91
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ee80c270da728c70800000000000000
+      internalID: 8971868443372457697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_5
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 1582
+        width: 138
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b435f07930bdff30800000000000000
+      internalID: 4611035354251998385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_6
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 1516
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e128244e5d6e6ca0800000000000000
+      internalID: -6021755400109940254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_7
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 1512
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b10ef0059345f3c10800000000000000
+      internalID: 2035438161727840283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_8
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 1521
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9761d1da31ba1310800000000000000
+      internalID: 1376607502301489054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_9
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 1521
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcea2d57b7f4ceec0800000000000000
+      internalID: -3536364215716368691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_10
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 1475
+        width: 24
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57a66d927393d0db0800000000000000
+      internalID: -4824136716756030859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_11
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 1447
+        width: 77
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb102fe8cef447a70800000000000000
+      internalID: 8823765447354745279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_12
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 1376
+        width: 16
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c650d80c88426c70800000000000000
+      internalID: 8962805974701201094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_13
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 1228
+        width: 59
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f49e2a41596538c90800000000000000
+      internalID: -7168790983547360945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_14
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1279
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ddd5cd3321e4ae60800000000000000
+      internalID: 7972744781829103060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_15
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 1111
+        width: 79
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4e31f9cd16f3be90800000000000000
+      internalID: -7010989587083215286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_16
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 1096
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac93eda4debafd5c0800000000000000
+      internalID: -4188440092779595318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_17
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 1058
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c2e61d4bdac69e50800000000000000
+      internalID: 6815858129311818432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_18
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 1013
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca54ca6cae719e910800000000000000
+      internalID: 1867049817644746156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_19
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 1004
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e83978aae3c004210800000000000000
+      internalID: 1315064554480702350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_20
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 894
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0338cd8af824a91a0800000000000000
+      internalID: -6802051102408932560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_21
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 850
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92334fd57f1effb70800000000000000
+      internalID: 8935108638275810089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_22
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 636
+        width: 91
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d49aa64fc39a5d00800000000000000
+      internalID: 962243988850119893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_23
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 628
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b4941c05ffb50c40800000000000000
+      internalID: 5477995580956644528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_24
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 556
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eed13b5b45c8ae10800000000000000
+      internalID: 2209232544668442338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_25
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 552
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ed90ca2bf5b74f20800000000000000
+      internalID: 3406891733487754721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_26
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 561
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47bbbf792805532f0800000000000000
+      internalID: -993799620939498636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_27
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 561
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 766b66e7e87780360800000000000000
+      internalID: 7136085063458272871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_28
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 515
+        width: 24
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab59016de1641d1f0800000000000000
+      internalID: -1021958542182017606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_29
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 487
+        width: 77
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cc28728970628c90800000000000000
+      internalID: -7169061581824185149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_30
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 416
+        width: 16
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc145dbc719a85400800000000000000
+      internalID: 313186093771342287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_31
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 268
+        width: 59
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a9f417da38ebb790800000000000000
+      internalID: -7513156213923317342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_32
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 319
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b44fde9eeb572f30800000000000000
+      internalID: 4550707028906951858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_33
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 151
+        width: 79
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26bc1a62603057be0800000000000000
+      internalID: -1480273577568515230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_34
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 136
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a1467d80c8770670800000000000000
+      internalID: 8504899189714862500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_35
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 98
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f15ca04db68fd4830800000000000000
+      internalID: 4057171981333349663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_36
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 53
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ece23666724713000800000000000000
+      internalID: 13919986429144782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fire_Phase01_02_ForestBorders_Seamless_1080x1920_37
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 44
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b9f90f8714af61f0800000000000000
+      internalID: -1049439767063037512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_0: -5216661405260979091
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_1: -908678671478125259
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_10: -4824136716756030859
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_11: 8823765447354745279
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_12: 8962805974701201094
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_13: -7168790983547360945
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_14: 7972744781829103060
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_15: -7010989587083215286
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_16: -4188440092779595318
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_17: 6815858129311818432
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_18: 1867049817644746156
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_19: 1315064554480702350
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_2: 9002932879966169878
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_20: -6802051102408932560
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_21: 8935108638275810089
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_22: 962243988850119893
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_23: 5477995580956644528
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_24: 2209232544668442338
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_25: 3406891733487754721
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_26: -993799620939498636
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_27: 7136085063458272871
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_28: -1021958542182017606
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_29: -7169061581824185149
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_3: 8038651848272237064
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_30: 313186093771342287
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_31: -7513156213923317342
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_32: 4550707028906951858
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_33: -1480273577568515230
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_34: 8504899189714862500
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_35: 4057171981333349663
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_36: 13919986429144782
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_37: -1049439767063037512
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_4: 8971868443372457697
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_5: 4611035354251998385
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_6: -6021755400109940254
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_7: 2035438161727840283
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_8: 1376607502301489054
+      Fire_Phase01_02_ForestBorders_Seamless_1080x1920_9: -3536364215716368691
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
